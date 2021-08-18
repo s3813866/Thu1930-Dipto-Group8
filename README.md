@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # RMIT SEPT 2021 Major Project
 
 # Group Day-Time
