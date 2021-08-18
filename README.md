@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # RMIT SEPT 2021 Major Project
 
 # Group Day-Time
@@ -27,6 +28,5 @@ To run the application locally :
 3) cd into FrontEnd/myfirstapp
 4) run "npm install"
 5) run "npm start"
-
 
 
