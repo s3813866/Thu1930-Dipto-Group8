@@ -33,7 +33,7 @@ public class User implements UserDetails {
     //OneToMany with Project
 
     public User() {
-        //something
+        //something => something else.
     }
 
     public Long getId() {
