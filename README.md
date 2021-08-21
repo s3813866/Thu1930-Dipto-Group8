@@ -14,7 +14,7 @@ Group 8: [Thursday-7:30 PM]
 ## Records
 
 * Github repository :<https://github.com/s3813866/Thu1930-Dipto-Group8>
-* jira Board : <https://sept-team.atlassian.net/jira/software/projects/SP/boards/1>
+* Jira Board : <https://sept-team.atlassian.net/jira/software/projects/SP/boards/1>
 * Google Docs : N/A
 * Microsoft Teams: <https://teams.microsoft.com/_#/school/files/General?threadId=19%3ANgpuw3qbDLrW-vQQR5nJjfNLD6cL6qWrzGzTWlZhc7c1%40thread.tacv2&ctx=channel&context=General&rootfolder=%252Fsites%252FSoftwareEngineeringProcessTools866%252FShared%2520Documents%252FGeneral>
 * Microsoft Sharepoint: <https://rmiteduau.sharepoint.com/sites/SoftwareEngineeringProcessTools866/Shared%20Documents/General>
