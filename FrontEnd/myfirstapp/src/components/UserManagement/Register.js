@@ -28,13 +28,6 @@ class Register extends Component {
       }
   }
 
-
-
-  onChange(e) {
-    console.log("onchange");
-    this.setState({ [e.target.name]: e.target.value });
-    }
-
   onSubmit(e) {
     e.preventDefault();
     const newUser = {
@@ -43,11 +36,13 @@ class Register extends Component {
       password: this.state.password,
       confirmPassword: this.state.confirmPassword
     };
-    console.log("LINE 39 REGISTER.JS");
+
     this.props.createNewUser(newUser, this.props.history);
   }
 
-
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+    }
   render() {
       const { errors } = this.state;
     return (
@@ -57,7 +52,7 @@ class Register extends Component {
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign Up</h1>
               <p className="lead text-center">Create your Account</p>
-              <form onSubmit={this.onSubmit}>
+              <form action="create-profile.html">
                 <div className="form-group">
                   <input
                     type="text"
@@ -65,10 +60,9 @@ class Register extends Component {
                         "is-invalid": errors.name
                     }) }
                     placeholder="Name"
-                    name="fullName"
+                    name="name"
                     value= {this.state.name}
                     required
-                    onChange = {this.onChange}
                   />
                   {errors.name && (
                       <div className= "invalid-feedback">{errors.name}</div>
@@ -79,8 +73,7 @@ class Register extends Component {
                     type="email"
                     className="form-control form-control-lg"
                     placeholder="Email Address"
-                    name="username"
-                    onChange = {this.onChange}
+                    name="email"
                   />
                 </div>
                 <div className="form-group">
@@ -89,7 +82,6 @@ class Register extends Component {
                     className="form-control form-control-lg"
                     placeholder="Password"
                     name="password"
-                    onChange = {this.onChange}
                   />
                 </div>
                 <div className="form-group">
@@ -97,8 +89,7 @@ class Register extends Component {
                     type="password"
                     className="form-control form-control-lg"
                     placeholder="Confirm Password"
-                    name="confirmPassword"
-                    onChange = {this.onChange}
+                    name="password2"
                   />
                 </div>
                 <input type="submit" className="btn btn-info btn-block mt-4" />
@@ -110,11 +101,4 @@ class Register extends Component {
     );
   }
 }
-// Register.propTypes = {
-//     createProject: PropTypes.func.isRequired
-//   };
-  
-export default connect(
-    null,
-    { createNewUser }
-  )(Register);
+export default Register;
