@@ -2,12 +2,13 @@ package com.rmit.sept.bookmicroservices;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class BookmicroservicesApplication {
+public class Ms_book {
 
     public static void main(String[] args) {
-        SpringApplication.run(BookmicroservicesApplication.class, args);
+        SpringApplication.run(Ms_book.class, args);
     }
 
 }
