@@ -7,7 +7,8 @@ import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.Collection;
 
-@Entity
+
+@Entity (name = "Book")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +27,14 @@ public class Book {
     private Date updated_At;
 
     public Book() {
+    }
+
+    public Book(long id, String title, String author, String ISBN, String category) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.ISBN = ISBN;
+        this.category = category;
     }
 
     public long getId() {
