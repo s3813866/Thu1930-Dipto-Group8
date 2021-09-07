@@ -5,7 +5,9 @@ import com.rmit.sept.bookmicroservices.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -14,13 +16,27 @@ public class BookService {
     private BookRepository bookrepository;
 
     public Book saveBook(Book newBook){
-//        bookrepository.
             return bookrepository.save(newBook);
     }
 
-    public List<Book> getAllBooks(){
-//        return bookrepository.
+    public Book getBookById(Long id){
+        Optional<Book> toGet = bookrepository.findById(id);
+        if(toGet.isPresent()){
+            Book getVal = toGet.get();
+            return getVal;
+        }
         return null;
+    }
+
+    public List<Book> getBooksByAuthor(String author){
+        List<Book> books = bookrepository.findBookByAuthor(author);
+        return books;
+    }
+
+    public List<Book> getAllBooks(){
+        List<Book> books = new ArrayList<Book>();
+        bookrepository.findAll().forEach(book -> books.add(book));
+        return books;
     }
 
 }

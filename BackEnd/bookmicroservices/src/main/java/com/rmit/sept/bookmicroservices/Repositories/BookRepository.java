@@ -4,12 +4,14 @@ import com.rmit.sept.bookmicroservices.model.Book;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface BookRepository extends CrudRepository<Book, Long>{
 
-    Book findByTitle(String title);
     Book getById(Long id);
+    Book findByTitle(String title);
     Book getByISBN(String ISBN);
-    Book getByAuthor(String author);
+    List<Book> findBookByAuthor(String author);
 
 }

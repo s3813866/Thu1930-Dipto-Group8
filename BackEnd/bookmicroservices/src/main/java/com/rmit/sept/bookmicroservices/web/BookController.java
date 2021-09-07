@@ -28,7 +28,7 @@ public class BookController {
 
 
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<?> addBook(@RequestBody Book book, BindingResult result){
         if(result.hasErrors()){
             Map<String,String> errorMap = new HashMap<>();
@@ -42,8 +42,37 @@ public class BookController {
 
     @GetMapping
     public ResponseEntity<?> getAllBooks(){
+        List<Book> books = bookservice.getAllBooks();
+        if(books.size() > 0){
+            return new ResponseEntity<>(books, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(books, HttpStatus.NO_CONTENT);
+        }
+    }
 
-        return new ResponseEntity<Book>(null, HttpStatus.OK);
+    //Send GET with id at the end of the URL
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getBookByID(@PathVariable Long id){
+        Book toGet = bookservice.getBookById(id);
+        if(toGet != null){
+            return new ResponseEntity<>(toGet, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    //Send GET as JSON body with author query to use this (e.g. {"author": "John Doe"})
+    //May need to change into something more robust, but key idea
+    //is that author query handles spaces
+    @GetMapping("/author")
+    public ResponseEntity<?> getBooksByAuthor(@RequestBody Book book){
+        List<Book> booksByAuthor = bookservice.getBooksByAuthor(book.getAuthor());
+        if(booksByAuthor.size() > 0){
+            return new ResponseEntity<>(booksByAuthor, HttpStatus.OK);
+//            return ResponseEntity.ok(booksByAuthor);
+        }else{
+            return new ResponseEntity<>(booksByAuthor, HttpStatus.NO_CONTENT);
+        }
     }
 
 }
