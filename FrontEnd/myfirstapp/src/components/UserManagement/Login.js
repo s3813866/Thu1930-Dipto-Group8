@@ -25,19 +25,21 @@ function Login() {
 
     const { data: returnFromDB, isSuccess } = mutation;
 
+    // console.log(returnFromDB);
+
 
     const onSubmit = async (data) => {
       return mutation.mutate(data);
     };
 
-    if (isSuccess) {
-        console.log(returnFromDB.data.success);
+    if (isSuccess === true) {
+        // console.log("login good")
 
-        console.log("login good")
-        console.log(returnFromDB.data);
+        console.log(returnFromDB.data.token);
 
-        return <Redirect to="/" />;
+        return <Redirect to="/register" />;
     }
+
 
     return (
       <div className="login">
