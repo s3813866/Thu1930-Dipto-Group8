@@ -4,12 +4,20 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {QueryClient, QueryClientProvider} from "react-query";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 
 const queryClient = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
       <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+              <Switch>
+                  <Route path = "/homee">
+                      <homePage />
+                  </Route>
+              </Switch>
+          </BrowserRouter>
       <App />
       </QueryClientProvider>
   </React.StrictMode>,
