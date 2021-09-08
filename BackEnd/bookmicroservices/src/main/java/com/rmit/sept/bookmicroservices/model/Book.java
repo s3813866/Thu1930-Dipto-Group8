@@ -22,6 +22,8 @@ public class Book {
     private String ISBN;
     @NotBlank(message = "Category is required")
     private String category;
+    @NotBlank(message = "Description is required")
+    private String description;
 
     private Date created_At;
     private Date updated_At;
@@ -29,12 +31,13 @@ public class Book {
     public Book() {
     }
 
-    public Book(long id, String title, String author, String ISBN, String category) {
+    public Book(long id, String title, String author, String ISBN, String category, String description) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.ISBN = ISBN;
         this.category = category;
+        this.description = description;
     }
 
     public long getId() {
@@ -83,6 +86,14 @@ public class Book {
 
     public void setCreated_At(Date created_At) {
         this.created_At = created_At;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getUpdated_At() {
