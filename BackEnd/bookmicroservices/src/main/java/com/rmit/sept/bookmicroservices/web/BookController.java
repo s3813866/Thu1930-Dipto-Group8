@@ -9,7 +9,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +49,7 @@ public class BookController {
         }
     }
 
-    //Send GET with id at the end of the URL
+    //Send GET with id at the end of the URL (e.g. /api/books/1)
     @GetMapping("/{id}")
     public ResponseEntity<?> getBookByID(@PathVariable Long id){
         Book toGet = bookservice.getBookById(id);
@@ -61,15 +60,17 @@ public class BookController {
         }
     }
 
-    //Send GET as JSON body with author query to use this (e.g. {"author": "John Doe"})
-    //May need to change into something more robust, but key idea
-    //is that author query handles spaces
+    //Send GET as URL with structure /api/books/author?author={author}
+    // (e.g. /api/books/author?author=qwerty).
+    //To use spaces for search, replace spaces in query with "%20"
     @GetMapping("/author")
-    public ResponseEntity<?> getBooksByAuthor(@RequestBody Book book){
-        List<Book> booksByAuthor = bookservice.getBooksByAuthor(book.getAuthor());
+    public ResponseEntity<?> getBooksByAuthor(@RequestParam String author){
+        if(author.contains("%20")){
+            author.replace("%20", " ");
+        }
+        List<Book> booksByAuthor = bookservice.getBooksByAuthor(author);
         if(booksByAuthor.size() > 0){
-            return new ResponseEntity<>(booksByAuthor, HttpStatus.OK);
-//            return ResponseEntity.ok(booksByAuthor);
+            return ResponseEntity.ok(booksByAuthor);
         }else{
             return new ResponseEntity<>(booksByAuthor, HttpStatus.NO_CONTENT);
         }

@@ -20,6 +20,11 @@ import React, { Component } from 'react'
                                 Dashboard
                             </a>
                         </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/search">
+                                Search
+                            </a>
+                        </li>
                     </ul>
     
                     <ul className="navbar-nav ml-auto">
