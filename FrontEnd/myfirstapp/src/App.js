@@ -11,6 +11,10 @@ import store from "./store";
 import Landing from "./components/Layout/Landing";
 import Register from "./components/UserManagement/Register";
 import Login from "./components/UserManagement/Login";
+import AddBook from "./pages/AddBook";
+import BookAdded from "./pages/BookAdded";
+import GetBookByAuthor from "./pages/getBookByAuthor";
+import GetBookById from "./pages/getBookById";
 
 class App extends Component {
   render() {
@@ -26,6 +30,11 @@ class App extends Component {
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/addBook" component={AddBook} />
+            <Route exact path="/bookAdded" component={BookAdded}/>
+            <Route exact path="/getBookByAuthor" component={GetBookByAuthor}/>
+            <Route exact path="/getBookById" component={GetBookById}/>
+
 
             {
               //Private Routes

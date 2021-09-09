@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.Collection;
 
 
-@Entity (name = "Book")
+@Entity
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,14 +31,6 @@ public class Book {
     public Book() {
     }
 
-    public Book(long id, String title, String author, String ISBN, String category, String description) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.ISBN = ISBN;
-        this.category = category;
-        this.description = description;
-    }
 
     public long getId() {
         return id;
