@@ -11,13 +11,6 @@ const queryClient = new QueryClient();
 ReactDOM.render(
   <React.StrictMode>
       <QueryClientProvider client={queryClient}>
-          <BrowserRouter>
-              <Switch>
-                  <Route path = "/homee">
-                      <homePage />
-                  </Route>
-              </Switch>
-          </BrowserRouter>
       <App />
       </QueryClientProvider>
   </React.StrictMode>,
