@@ -29,7 +29,7 @@ public class BookService {
     }
 
     public List<Book> getBooksByAuthor(String author){
-        List<Book> books = bookrepository.findBookByAuthor(author);
+        List<Book> books = bookrepository.getBooksByAuthorContains(author);
         return books;
     }
 

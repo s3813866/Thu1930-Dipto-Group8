@@ -15,6 +15,7 @@ import AddBook from "./pages/AddBook";
 import BookAdded from "./pages/BookAdded";
 import GetBookByAuthor from "./pages/getBookByAuthor";
 import GetBookById from "./pages/getBookById";
+import Search from "./components/BookManagement/Search";
 
 class App extends Component {
   render() {
@@ -26,22 +27,24 @@ class App extends Component {
             {
               //Public Routes
             }
-           
+
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/addBook" component={AddBook} />
-            <Route exact path="/bookAdded" component={BookAdded}/>
-            <Route exact path="/getBookByAuthor" component={GetBookByAuthor}/>
-            <Route exact path="/getBookById" component={GetBookById}/>
+            <Route exact path="/bookAdded" component={BookAdded} />
+            <Route exact path="/getBookByAuthor" component={GetBookByAuthor} />
+            <Route exact path="/getBookById" component={GetBookById} />
 
+            <Route exact path="/search" component={Search} />
+            {/* <Route exact path="/results" component={Search} /> */}
 
             {
               //Private Routes
             }
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/addPerson" component={AddPerson} />
-          
+
           </div>
         </Router>
       </Provider>
