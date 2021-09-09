@@ -37,8 +37,8 @@ class GetBookByAuthor extends Component {
 
             author: this.state.author,
         }
-
         this.props.getAuthor(newAuthor, this.props.history);
+
     }
     render() {
         const { errors } = this.state;
@@ -51,6 +51,7 @@ class GetBookByAuthor extends Component {
                                            onChange = {this.onChange}
                                     />
                                 </div>
+
                                 <input type="submit" className="btn btn-primary btn-block mt-4" />
                             </form>
 

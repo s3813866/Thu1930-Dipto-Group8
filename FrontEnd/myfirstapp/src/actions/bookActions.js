@@ -18,9 +18,9 @@ export const createBook = (book, history) => async dispatch => {
 };
 
 export const getAuthor = (author, history) => async dispatch => {
-
+    const LINK = `/api/books/author`;
     try {
-        const res = await axios.get("http://localhost:8080/api/books/author", {params: {author: author}});
+        const res = await axios.get(`${LINK}?author=${author.author}`);
         dispatch({
             type: GET_AUTHOR,
             payload: res.data
