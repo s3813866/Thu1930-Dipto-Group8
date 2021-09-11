@@ -28,6 +28,14 @@ class Register extends Component {
       }
   }
 
+
+
+  onChange(e) {
+    console.log("onchange");
+    console.log("LINE 35 onChange");
+    this.setState({ [e.target.name]: e.target.value });
+    }
+
   onSubmit(e) {
     e.preventDefault();
     const newUser = {
@@ -36,7 +44,7 @@ class Register extends Component {
       password: this.state.password,
       confirmPassword: this.state.confirmPassword
     };
-
+    console.log("LINE 47 REGISTER.JS");
     this.props.createNewUser(newUser, this.props.history);
   }
 
