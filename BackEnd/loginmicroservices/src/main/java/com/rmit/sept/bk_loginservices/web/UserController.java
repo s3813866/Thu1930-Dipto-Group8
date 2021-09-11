@@ -25,9 +25,13 @@ import javax.validation.Valid;
 
 import static com.rmit.sept.bk_loginservices.security.SecurityConstant.TOKEN_PREFIX;
 
+// Imported for @CrossOrigin
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin
 public class UserController {
 
     @Autowired
