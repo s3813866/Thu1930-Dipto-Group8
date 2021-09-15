@@ -25,10 +25,12 @@ export const getAuthor = (author, history) => async dispatch => {
             type: GET_AUTHOR,
             payload: res.data
         });
-        console.log(res.data);
+        // console.log(res.data);
+        return res.data
     } catch (error) {
         history.push("/error");
     }
+
 };
 
 

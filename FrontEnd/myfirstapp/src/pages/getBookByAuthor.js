@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {createBook, getAuthor} from "../actions/bookActions";
 import {connect} from "react-redux";
 
-
+const titles = []
 
 class GetBookByAuthor extends Component {
     constructor(){
@@ -31,18 +31,26 @@ class GetBookByAuthor extends Component {
         this.setState({[e.target.name]: e.target.value});
     }
 
-    onSubmit(e){
+    async onSubmit(e){
         e.preventDefault();
         const newAuthor = {
 
             author: this.state.author,
         }
-        this.props.getAuthor(newAuthor, this.props.history);
-
+        const data = await this.props.getAuthor(newAuthor, this.props.history);
+        // console.log(data.title)
+        // const{ title } = data[0]
+        data.forEach(book => {
+            console.log(book.title)
+            titles.push(book.title)
+        })
     }
+
+
     render() {
         const { errors } = this.state;
         return (
+            <div>
                             <form onSubmit={this.onSubmit}>
                                 <div className="form-group">
                                     <input type="text" className="form-control form-control-lg"
@@ -53,8 +61,11 @@ class GetBookByAuthor extends Component {
                                 </div>
 
                                 <input type="submit" className="btn btn-primary btn-block mt-4" />
+
                             </form>
 
+                <h2>{titles[0]}</h2>
+            </div>
         )
     }
 }
