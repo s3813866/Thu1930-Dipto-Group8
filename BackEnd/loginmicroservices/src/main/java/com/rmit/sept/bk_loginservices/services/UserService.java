@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -40,6 +42,33 @@ public class UserService {
             throw new UsernameAlreadyExistsException("Username '"+newUser.getUsername()+"' already exists");
         }
 
+    }
+
+    public User getUserByID(Long id){
+        Optional<User> toGet = userRepository.findById(id);
+        if(toGet.isPresent()){
+            User getVal = toGet.get();
+            return getVal;
+        }
+        return null;
+    }
+
+    public User updateUser(User updatedUser){
+        try{
+            updatedUser.setPassword(bCryptPasswordEncoder.encode(updatedUser.getPassword()));
+            updatedUser.setConfirmPassword("");
+            return userRepository.save(updatedUser);
+        }catch (Exception e){
+            throw new UsernameAlreadyExistsException("Username '"+updatedUser.getUsername()+"' already exists");
+        }
+    }
+
+    public User updateUser_noPwdChange(User updatedUser){
+        try{
+            return userRepository.save(updatedUser);
+        }catch (Exception e){
+            throw new UsernameAlreadyExistsException("Username '"+updatedUser.getUsername()+"' already exists");
+        }
     }
 
 
