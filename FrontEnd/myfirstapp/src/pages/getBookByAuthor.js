@@ -38,12 +38,13 @@ class GetBookByAuthor extends Component {
             author: this.state.author,
         }
         const data = await this.props.getAuthor(newAuthor, this.props.history);
-        // console.log(data.title)
-        // const{ title } = data[0]
+        console.log(data)
+        this.setState({titles: []})
         data.forEach(book => {
             console.log(book.title)
             titles.push(book.title)
         })
+
     }
 
 
@@ -64,7 +65,7 @@ class GetBookByAuthor extends Component {
 
                             </form>
 
-                <h2>{titles[0]}</h2>
+                <h2>{titles.map((title) => <h3>{"\n"}{title}{"\n"}</h3>)}</h2>
             </div>
         )
     }
