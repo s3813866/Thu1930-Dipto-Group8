@@ -25,8 +25,6 @@ public class BookController {
         this.bookservice = bookservice;
     }
 
-
-
     @PostMapping("/add")
     public ResponseEntity<?> addBook(@RequestBody Book book, BindingResult result){
         if(result.hasErrors()){
@@ -63,6 +61,7 @@ public class BookController {
     //Send GET as URL with structure /api/books/author?author={author}
     // (e.g. /api/books/author?author=qwerty).
     //To use spaces for search, replace spaces in query with "%20"
+
     @GetMapping("/author")
     public ResponseEntity<?> getBooksByAuthor(@RequestParam String author){
         if(author.contains("%20")){
