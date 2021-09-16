@@ -15,3 +15,18 @@ code {
 h2{
   text-align: center;
 }
+
+title{
+  text-align: center;
+}
+
+figcaption {
+  position: absolute;
+  bottom: 26rem;
+  margin: 0 50rem;
+  color: aqua;
+  font-size: 3.4em;
+
+}
+
+

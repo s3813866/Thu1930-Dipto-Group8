@@ -42,9 +42,23 @@ export const getBook = (id, history) => async dispatch => {
             type: GET_BOOK,
             payload: res.data
         });
-        console.log(res.data.title);
-        console.log(res.data.description);
+        // console.log(res.data.title);
+        // console.log(res.data.description);
     } catch (error) {
         history.push("/dashboard");
     }
 };
+
+export const getAllBooks = (history) => async dispatch  => {
+    try{
+        const res = await axios.get(`/api/books`);
+        dispatch({
+            type: GET_BOOK,
+            payload: res.data
+        })
+
+    }catch (error){
+        history.push("/error");
+    }
+
+}
