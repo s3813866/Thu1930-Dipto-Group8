@@ -1,9 +1,12 @@
 package com.rmit.sept.bookmicroservices.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Collection;
 
@@ -18,6 +21,7 @@ public class Book {
     private String title;
     @NotBlank(message = "Author is required")
     private String author;
+    @Size(min = 13, max = 13, message = "ISBN must be exactly 13 characters")
     @NotBlank(message = "ISBN is required")
     private String ISBN;
     @NotBlank(message = "Category is required")
@@ -31,6 +35,13 @@ public class Book {
     public Book() {
     }
 
+    public Book(String title, String author, String ISBN, String category, String description) {
+        this.title = title;
+        this.author = author;
+        this.ISBN = ISBN;
+        this.category = category;
+        this.description = description;
+    }
 
     public long getId() {
         return id;

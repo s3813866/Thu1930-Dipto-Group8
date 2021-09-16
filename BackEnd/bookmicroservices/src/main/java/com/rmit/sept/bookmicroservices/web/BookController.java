@@ -75,4 +75,45 @@ public class BookController {
         }
     }
 
+    @PutMapping("/edit/{id}")
+    public ResponseEntity editBook(@PathVariable Long id, @RequestBody Book newDetails,
+                                   BindingResult result){
+        final Book updatedBook;
+        boolean hasNewValues = false;
+        Book toEdit = bookservice.getBookById(id);
+        if(toEdit == null){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        if(newDetails.getTitle() != null){
+            toEdit.setTitle(newDetails.getTitle());
+            hasNewValues = true;
+        }
+        if(newDetails.getAuthor() != null){
+            toEdit.setAuthor(newDetails.getAuthor());
+            hasNewValues = true;
+        }
+        if(newDetails.getCategory() != null){
+            toEdit.setCategory(newDetails.getCategory());
+            hasNewValues = true;
+        }
+        if(newDetails.getISBN() != null){
+            toEdit.setISBN(newDetails.getISBN());
+            hasNewValues = true;
+        }
+        if(newDetails.getDescription() != null){
+            toEdit.setDescription(newDetails.getDescription());
+            hasNewValues = true;
+        }
+        try{
+            if(hasNewValues){
+                updatedBook = bookservice.updateBook(toEdit);
+                return ResponseEntity.ok(updatedBook);
+            }else{
+                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            }
+        }catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

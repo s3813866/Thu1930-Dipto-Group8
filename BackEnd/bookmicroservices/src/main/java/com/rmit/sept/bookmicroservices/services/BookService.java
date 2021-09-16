@@ -41,4 +41,12 @@ public class BookService {
         return books;
     }
 
+    public Book updateBook(Book updatedBook){
+        try{
+            return bookrepository.save(updatedBook);
+        }catch(Exception e){
+            throw new IllegalArgumentException("Incorrect details entered");
+        }
+    }
+
 }
