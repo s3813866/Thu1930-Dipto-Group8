@@ -1,0 +1,23 @@
+# Docker Compose will create a Virtual Network [Hostnames = ServiceName]: (Reference: https://youtu.be/Qw9zlE3t8Ko?t=461)
+# Service Build Names will be used as Addresses: Using Localhost will be deprecated within API Calls for the Project until transition to AWS
+
+# Start Command: docker-compose up -d
+# Stop Command: docker-compose stop
+
+version: "3"
+
+services:
+  frontend:
+    image: "frontendreact:latest"
+    ports:
+      - "3000:3000"
+
+  bookbackend:
+    image: "bookmicroservice:latest"
+    ports:
+      - "5001:8080"
+
+  loginbackend:
+    image: "loginmicroservice:latest"
+    ports:
+      - "8080:8080"
