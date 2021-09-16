@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import {createBook, getAuthor} from "../actions/bookActions";
 import {connect} from "react-redux";
+import {Container, Table} from "@material-ui/core";
 
 const titles = []
 
@@ -52,7 +53,8 @@ class GetBookByAuthor extends Component {
     render() {
         const { errors } = this.state;
         return (
-            <div>
+            <Container>
+                <h2>Search your favourite author</h2>
                             <form onSubmit={this.onSubmit}>
                                 <div className="form-group">
                                     <input type="text" className="form-control form-control-lg"
@@ -66,8 +68,23 @@ class GetBookByAuthor extends Component {
 
                             </form>
 
-                <h2>{titles.map((book) => <h3>{"\n"}{book.author}{" : "}{book.title}{"\n"}</h3>)}</h2>
-            </div>
+                <Table striped bordered hover variant="dark">
+                    <thead>
+                    <tr>
+                        <th>Book Id</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Category</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {titles.map((book => <tr> <td>{book.id}</td>
+                                                <td>{book.title}</td>
+                                                <td>{book.author}</td>
+                                                <td>{book.category}</td></tr>))}
+                    </tbody>
+                </Table>
+            </Container>
         )
     }
 }

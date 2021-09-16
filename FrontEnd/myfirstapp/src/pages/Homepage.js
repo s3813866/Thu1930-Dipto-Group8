@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Container} from "@material-ui/core";
 
 
-function MainBody(){
+function UpperBody(){
     return(
         <div>
             <figure className="position-relative">
@@ -27,10 +27,7 @@ class homePage extends Component {
     render() {
         return (
             <div className="title">
-                <h1 style={{textAlign:"center"}}>Welcome to Bookeroo!</h1>
-                <h3 style={{textAlign:"center", position: "relative"}}>Knowledge is power </h3>
-
-                <MainBody />
+                <UpperBody />
             </div>
         )
     }
