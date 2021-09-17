@@ -1,16 +1,17 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from "prop-types";
 import {createBook, getAuthor} from "../actions/bookActions";
 import {connect} from "react-redux";
 import {Container, Table} from "@material-ui/core";
+import {Alert} from "@mui/material";
 
 const titles = []
 
 class GetBookByAuthor extends Component {
-    constructor(){
+    constructor() {
         super();
 
-        this.state= {
+        this.state = {
             author: "",
         };
 
@@ -19,20 +20,20 @@ class GetBookByAuthor extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps){
-        if (nextProps.errors){
-            this.setState ({
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.errors) {
+            this.setState({
                 errors: nextProps.errors
             });
 
         }
     }
 
-    onChange(e){
+    onChange(e) {
         this.setState({[e.target.name]: e.target.value});
     }
 
-    async onSubmit(e){
+    async onSubmit(e) {
         e.preventDefault();
         const newAuthor = {
 
@@ -51,45 +52,52 @@ class GetBookByAuthor extends Component {
 
 
     render() {
-        const { errors } = this.state;
+        const {errors} = this.state;
         return (
-            <Container>
-                <h2>Search your favourite author</h2>
-                            <form onSubmit={this.onSubmit}>
-                                <div className="form-group">
-                                    <input type="text" className="form-control form-control-lg"
-                                           placeholder="Author"
-                                           name="author"
-                                           onChange = {this.onChange}
-                                    />
-                                </div>
+            <>
+                <Container>
+                    <h2>Search your favourite author</h2>
+                    <form onSubmit={this.onSubmit}>
+                        <div className="form-group">
+                            <input type="text" className="form-control form-control-lg"
+                                   placeholder="Author"
+                                   name="author"
+                                   onChange={this.onChange}
+                            />
+                        </div>
 
-                                <input type="submit" className="btn btn-primary btn-block mt-4" />
+                        <input type="submit" className="btn btn-primary btn-block mt-4"/>
+                        <Alert severity="success">Author found!</Alert>
+                    </form>
 
-                            </form>
+                    <h2 color={"green"}>{"\n"}Books found {"\n"}</h2>
+                    <Table striped bordered hover variant="dark">
+                        <thead>
+                        <tr>
+                            <th>Book Id</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Category</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {titles.map((book => <tr>
+                            <td>{book.id}</td>
+                            <td>{book.title}</td>
+                            <td>{book.author}</td>
+                            <td>{book.category}</td>
+                        </tr>))}
+                        </tbody>
+                    </Table>
+                </Container>
 
-                <Table striped bordered hover variant="dark">
-                    <thead>
-                    <tr>
-                        <th>Book Id</th>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Category</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {titles.map((book => <tr> <td>{book.id}</td>
-                                                <td>{book.title}</td>
-                                                <td>{book.author}</td>
-                                                <td>{book.category}</td></tr>))}
-                    </tbody>
-                </Table>
-            </Container>
+            </>
         )
     }
 }
+
 GetBookByAuthor.propTypes = {
     createProject: PropTypes.func.isRequired
 };
 
-export default connect(null, {getAuthor}) (GetBookByAuthor);
+export default connect(null, {getAuthor})(GetBookByAuthor);
