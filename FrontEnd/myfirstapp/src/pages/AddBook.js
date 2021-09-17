@@ -61,6 +61,7 @@ class AddBook extends Component {
                             <h5 className="display-4 text-center">Add Book</h5>
                             <hr />
                             <form onSubmit={this.onSubmit}>
+                                <br/>
                                 <div className="form-group">
                                     <input type="text" className="form-control form-control-lg "
                                            placeholder="Book Title"
@@ -68,6 +69,7 @@ class AddBook extends Component {
                                            value= {this.state.name}
                                            onChange = {this.onChange}
                                     />
+                                    <br/>
 
                                 </div>
                                 <div className="form-group">
@@ -76,6 +78,7 @@ class AddBook extends Component {
                                            name="author"
                                            onChange = {this.onChange}
                                     />
+                                    <br/>
                                 </div>
 
                         <div className="form-group">
@@ -84,6 +87,7 @@ class AddBook extends Component {
                                    name="category"
                                    onChange = {this.onChange}
                             />
+                            <br/>
                         </div>
 
 
@@ -93,6 +97,7 @@ class AddBook extends Component {
                                            name="isbn"
                                            onChange = {this.onChange}
                                     />
+                                    <br/>
                                 </div>
 
 

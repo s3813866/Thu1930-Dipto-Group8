@@ -32,7 +32,7 @@ export default function PageNotFound() {
                 <div className={classes.middle}>
                     <div className={classes.textBlue}>
                         <p>
-                            asdasdasdas
+
                         </p>
                         <h1>404 NOT FOUND <ErrorIcon/> </h1>
                     </div>

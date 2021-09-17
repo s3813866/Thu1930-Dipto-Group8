@@ -71,6 +71,8 @@ class GetBookByAuthor extends Component {
                     </form>
 
                     <h2 color={"green"}>{"\n"}Books found {"\n"}</h2>
+                    <br/>
+                    <br/>
                     <Table striped bordered hover variant="dark">
                         <thead>
                         <tr>
