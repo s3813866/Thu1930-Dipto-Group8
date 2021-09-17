@@ -53,6 +53,10 @@ public class UserService {
         return null;
     }
 
+    public User getUserByUsername(String username){
+        return userRepository.findByUsername(username);
+    }
+
     public User updateUser(User updatedUser){
         try{
             updatedUser.setPassword(bCryptPasswordEncoder.encode(updatedUser.getPassword()));
