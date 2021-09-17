@@ -76,7 +76,7 @@ public class BookController {
         }
     }
 
-    @PutMapping("/edit/{id}")
+ \   @PutMapping("/edit/{id}")
     public ResponseEntity editBook(@PathVariable Long id, @RequestBody Book newDetails,
                                    BindingResult result){
         final Book updatedBook;
