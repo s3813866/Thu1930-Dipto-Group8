@@ -7,6 +7,25 @@ import {Alert} from "@mui/material";
 
 const titles = []
 
+function WarningAlert(){
+    return (
+        <Alert variant="filled" severity="error">
+            This is a success alert — check it out!
+        </Alert>
+    )
+}
+
+function SuccessAlert(){
+    return (
+        <Alert variant="filled" severity="success">
+            This is a success alert — check it out!
+        </Alert>
+    )
+}
+function conditionalRender(){
+
+}
+
 class GetBookByAuthor extends Component {
     constructor() {
         super();
@@ -40,13 +59,17 @@ class GetBookByAuthor extends Component {
             author: this.state.author,
         }
         const data = await this.props.getAuthor(newAuthor, this.props.history);
-        console.log(data)
-
-        titles.splice(0, titles.length)
-        data.forEach(book => {
-            console.log(book)
-            titles.push(book)
-        })
+        if(data){
+            console.log(data)
+            titles.splice(0, titles.length)
+            data.forEach(book => {
+                console.log(book)
+                titles.push(book)
+            })
+        }
+        else{
+            console.log("no data")
+        }
 
     }
 
@@ -67,7 +90,6 @@ class GetBookByAuthor extends Component {
                         </div>
 
                         <input type="submit" className="btn btn-primary btn-block mt-4"/>
-                        <Alert severity="success">Author found!</Alert>
                     </form>
 
                     <h2 color={"green"}>{"\n"}Books found {"\n"}</h2>

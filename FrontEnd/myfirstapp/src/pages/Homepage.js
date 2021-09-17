@@ -37,7 +37,7 @@ function CardBook(){
                         This is a wider card with supporting text below as a natural lead-in to
                         additional content. This content is a little bit longer.
                     </Card.Text>
-                    <Button variant="primary">Go somewhere</Button>
+                    <Button variant="primary">More..</Button>
                 </Card.Body>
             </Card> ))}
         </CardGroup>
