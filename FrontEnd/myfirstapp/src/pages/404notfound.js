@@ -23,10 +23,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-
-
-
-
 export default function PageNotFound() {
     const classes = useStyles();
 

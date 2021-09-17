@@ -4,7 +4,7 @@ import {link, Link} from "react-router-dom";
  const CreatePersonButton=() => {
     return (
         <React.Fragment>
-        <Link to="/addPerson"
+        <Link to="/register"
         className="btn btn-lg btn-info">
         Create a Person
         </Link>
