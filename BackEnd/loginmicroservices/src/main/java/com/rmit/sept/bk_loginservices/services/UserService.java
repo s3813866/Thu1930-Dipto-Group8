@@ -3,6 +3,7 @@ package com.rmit.sept.bk_loginservices.services;
 
 
 
+import com.rmit.sept.bk_loginservices.AccountType;
 import com.rmit.sept.bk_loginservices.Repositories.UserRepository;
 import com.rmit.sept.bk_loginservices.exceptions.UsernameAlreadyExistsException;
 import com.rmit.sept.bk_loginservices.model.User;
@@ -36,6 +37,9 @@ public class UserService {
             // Make sure that password and confirmPassword match
             // We don't persist or show the confirmPassword
             newUser.setConfirmPassword("");
+            if(newUser.getAccountType() == null){
+                newUser.setAccountType(AccountType.CUSTOMER);
+            }
             return userRepository.save(newUser);
 
         }catch (Exception e){
@@ -51,6 +55,10 @@ public class UserService {
             return getVal;
         }
         return null;
+    }
+
+    public User getUserByUsername(String username){
+        return userRepository.findByUsername(username);
     }
 
     public User updateUser(User updatedUser){
