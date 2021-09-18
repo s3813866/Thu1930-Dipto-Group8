@@ -17,6 +17,8 @@ import GetBookById from "./pages/getBookById";
 import Search from "./components/BookManagement/Search";
 import PageNotFound from "./pages/404notfound";
 import Homepage from "./pages/Homepage";
+import CustomizedSnackbars from "./pages/Test";
+import BookListing from "./pages/BookListing";
 
 class App extends Component {
   render() {
@@ -39,8 +41,11 @@ class App extends Component {
             <Route exact path="/addBook" component={AddBook} />
             <Route exact path="/bookAdded" component={BookAdded} />
             <Route exact path="/getBookByAuthor" component={GetBookByAuthor} />
-            <Route exact path="/getBookById" component={GetBookById} />
+              {/*not needed for now*/}
+            {/*<Route exact path="/getBookById" component={GetBookById} />*/}
             <Route exact path="/home" component={Homepage} />
+              <Route exact path="/test" component={CustomizedSnackbars} />
+              <Route exact path="/BookListing" component={BookListing} />
 
             <Route exact path="/search" component={Search} />
             {/* <Route exact path="/results" component={Search} /> */}

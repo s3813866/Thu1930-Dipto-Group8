@@ -59,7 +59,7 @@ render() {
           <div className="col-md-8 m-auto">
             <h1 className="display-4 text-center">Sign Up</h1>
             <p className="lead text-center">Create your Account</p>
-            <form onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit} data-testid="register">
               <div className="form-group">
                 <input
                   type="text"
@@ -120,3 +120,4 @@ export default connect(
   null,
   { createNewUser }
 )(Register);
+export {Register}

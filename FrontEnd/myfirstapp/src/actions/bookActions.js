@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ERRORS, GET_AUTHOR, GET_BOOK } from "./types";
+import {GET_ERRORS, GET_AUTHOR, GET_BOOK, GET_BOOKS} from "./types";
 
 export const createBook = (book, history) => async dispatch => {
     try {
@@ -35,30 +35,32 @@ export const getAuthor = (author, history) => async dispatch => {
 
 
 
-export const getBook = (id, history) => async dispatch => {
+export const getBook = () => async dispatch => {
     try {
-        const res = await axios.get(`/api/books/${id.id}`);
+        const res = await axios.get(`/api/books/`);
         dispatch({
             type: GET_BOOK,
             payload: res.data
         });
-        // console.log(res.data.title);
-        // console.log(res.data.description);
+        return res.data
     } catch (error) {
-        history.push("/dashboard");
+        console.log("error")
     }
 };
 
-export const getAllBooks = (history) => async dispatch  => {
+export const getAllBooks = () => async dispatch  => {
     try{
         const res = await axios.get(`/api/books`);
         dispatch({
-            type: GET_BOOK,
+            type: GET_BOOKS,
             payload: res.data
         })
+        console.log("get")
+        console.log(res)
+        return res.data
 
     }catch (error){
-        history.push("/error");
+        console.log(error);
     }
 
 }

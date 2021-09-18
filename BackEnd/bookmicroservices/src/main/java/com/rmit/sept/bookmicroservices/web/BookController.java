@@ -37,7 +37,7 @@ public class BookController {
         return new ResponseEntity<Book>(book, HttpStatus.CREATED);
     }
 
-    @GetMapping("/allBooks")
+    @GetMapping
     public ResponseEntity<?> getAllBooks(){
         List<Book> books = bookservice.getAllBooks();
         if(books.size() > 0){

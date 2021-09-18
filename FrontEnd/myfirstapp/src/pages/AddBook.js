@@ -60,7 +60,7 @@ class AddBook extends Component {
                         <div className="col-md-8 m-auto">
                             <h5 className="display-4 text-center">Add Book</h5>
                             <hr />
-                            <form onSubmit={this.onSubmit}>
+                            <form onSubmit={this.onSubmit} data-testid="Addbook">
                                 <br/>
                                 <div className="form-group">
                                     <input type="text" className="form-control form-control-lg "
@@ -125,3 +125,4 @@ AddBook.propTypes = {
 };
 
 export default connect(null, {createBook}) (AddBook);
+export {AddBook}

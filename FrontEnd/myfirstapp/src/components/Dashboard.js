@@ -15,8 +15,8 @@ class Dashboard extends Component {
                        <CreatePersonButton />
                         <br />
                         <hr />
-                        <Person/>
-                        <Statistics/>
+                        <Person />
+                        <Statistics />
                     </div>
                 </div>
             </div>

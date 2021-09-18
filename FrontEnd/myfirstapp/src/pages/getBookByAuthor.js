@@ -1,30 +1,14 @@
 import React, {Component} from 'react'
 import PropTypes from "prop-types";
 import {createBook, getAuthor} from "../actions/bookActions";
-import {connect} from "react-redux";
-import {Container, Table} from "@material-ui/core";
-import {Alert} from "@mui/material";
+import {connect, Provider} from "react-redux";
+import {Container} from "@material-ui/core";
+
+import {Table} from "react-bootstrap";
+import store from "../store";
+
 
 const titles = []
-
-function WarningAlert(){
-    return (
-        <Alert variant="filled" severity="error">
-            This is a success alert — check it out!
-        </Alert>
-    )
-}
-
-function SuccessAlert(){
-    return (
-        <Alert variant="filled" severity="success">
-            This is a success alert — check it out!
-        </Alert>
-    )
-}
-function conditionalRender(){
-
-}
 
 class GetBookByAuthor extends Component {
     constructor() {
@@ -58,6 +42,7 @@ class GetBookByAuthor extends Component {
 
             author: this.state.author,
         }
+
         const data = await this.props.getAuthor(newAuthor, this.props.history);
         if(data){
             console.log(data)
@@ -77,10 +62,10 @@ class GetBookByAuthor extends Component {
     render() {
         const {errors} = this.state;
         return (
-            <>
+            <Provider store={store}>
                 <Container>
                     <h2>Search your favourite author</h2>
-                    <form onSubmit={this.onSubmit}>
+                    <form onSubmit={this.onSubmit} data-testid="form">
                         <div className="form-group">
                             <input type="text" className="form-control form-control-lg"
                                    placeholder="Author"
@@ -115,7 +100,7 @@ class GetBookByAuthor extends Component {
                     </Table>
                 </Container>
 
-            </>
+            </Provider>
         )
     }
 }
@@ -125,3 +110,4 @@ GetBookByAuthor.propTypes = {
 };
 
 export default connect(null, {getAuthor})(GetBookByAuthor);
+export {GetBookByAuthor};

@@ -4,7 +4,7 @@ import StatsPic from "./Stats.jpg"
 class Statistics extends Component {
     render() {
         return (
-            <div className="container">
+            <div className="container" data-testid="stats">
                 <div className="card card-body bg-light mb-3">
                     <div className="row">
                         <div className="col-2">

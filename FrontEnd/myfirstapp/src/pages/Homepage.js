@@ -12,6 +12,8 @@ const books = [
     "Book 4"
 ];
 
+const BookObjs = books.map((book,i) =>({id: i, title:book}));
+
 function UpperBody(){
     return(
         <div>
@@ -26,13 +28,13 @@ function UpperBody(){
     )
 }
 
-function CardBook(){
+function CardBook({id}){
     return (
-        <CardGroup>
-            {books.map((book => <Card>
+        <CardGroup data-testid={id}>
+            {BookObjs.map((book => <Card key={book.id}>
                 <Card.Img variant="top" src={SingleBook}/>
                 <Card.Body>
-                    <Card.Title>{book}</Card.Title>
+                    <Card.Title>{book.title}</Card.Title>
                     <Card.Text>
                         This is a wider card with supporting text below as a natural lead-in to
                         additional content. This content is a little bit longer.
@@ -54,7 +56,7 @@ function CardBodyMid(){
             <br/>
             <hr/>
             <br/>
-            <CardBook />
+            <CardBook id="Card1"/>
 
             <br/>
             <br/>
@@ -65,7 +67,7 @@ function CardBodyMid(){
             <br/>
             <hr/>
             <br/>
-            <CardBook />
+            <CardBook id="Card2"/>
 
         </Container>
     )

@@ -4,7 +4,7 @@ import AdminPic from "./AdminPic.jpg"
 class Person extends Component {
     render() {
         return (
-            <div className="container">
+            <div className="container" data-testid="person">
                             <div className="card card-body bg-light mb-3">
                                 <div className="row">
                                     <div className="col-2">
