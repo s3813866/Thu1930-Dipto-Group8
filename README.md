@@ -6,10 +6,9 @@ Group 8: [Thursday-7:30 PM]
 
 ## Members
 
-* xxxxx
-* xxxxx
-* xxxxx
-* xxxxx
+* Jeremy Chung
+* Pemal Padukkage
+* Yeu Haw Teh
 
 ## Records
 
@@ -19,11 +18,8 @@ Group 8: [Thursday-7:30 PM]
 * Microsoft Teams: <https://teams.microsoft.com/_#/school/files/General?threadId=19%3ANgpuw3qbDLrW-vQQR5nJjfNLD6cL6qWrzGzTWlZhc7c1%40thread.tacv2&ctx=channel&context=General&rootfolder=%252Fsites%252FSoftwareEngineeringProcessTools866%252FShared%2520Documents%252FGeneral>
 * Microsoft Sharepoint: <https://rmiteduau.sharepoint.com/sites/SoftwareEngineeringProcessTools866/Shared%20Documents/General>
 
-## Code documentation - Release 0.1.0 - date
+## Code documentation - Release 0.1.0 -  [18/09/2021]
 
-* feature 1
-* feature 2
-* feature 3
   
 To run the application locally :
 

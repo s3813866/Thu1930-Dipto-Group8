@@ -114,9 +114,9 @@ jobs:
       ########################################################################
       # Commented Out Temporarily as There are Failing Tests in the FrontEnd.#
       ########################################################################
-      # - run:
-      #     name: Run Tests
-      #     command: npm test
+      - run:
+          name: Run Tests
+          command: npm test
 
       # Build Docker Image and Upload to *Private Repository
       - run:
