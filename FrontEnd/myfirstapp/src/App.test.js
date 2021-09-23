@@ -47,10 +47,10 @@ test("renders statistics dashboard properly", () =>{
   expect(getByTestId('stats'))
 })
 
-test("renders login form properly", () =>{
-  const {getByTestId} = render(<Login />)
-  expect(getByTestId('login'))
-})
+// test("renders login form properly", () =>{
+//   const {getByTestId} = render(<Login />)
+//   expect(getByTestId('login'))
+// })
 
 test("renders addBook form properly", () =>{
   const {getByTestId} = render(<AddBook/>)

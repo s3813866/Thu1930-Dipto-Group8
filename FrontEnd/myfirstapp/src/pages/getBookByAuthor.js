@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from "prop-types";
-import {createBook, getAuthor} from "../actions/bookActions";
+import {createBook, getAuthor, getBook} from "../actions/bookActions";
 import {connect, Provider} from "react-redux";
 import {Container} from "@material-ui/core";
 
@@ -109,5 +109,5 @@ GetBookByAuthor.propTypes = {
     createProject: PropTypes.func.isRequired
 };
 
-export default connect(null, {getAuthor})(GetBookByAuthor);
+export default connect(null, {getAuthor, getBook})(GetBookByAuthor);
 export {GetBookByAuthor};
