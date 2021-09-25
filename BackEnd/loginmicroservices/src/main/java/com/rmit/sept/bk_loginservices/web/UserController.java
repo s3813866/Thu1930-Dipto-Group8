@@ -50,7 +50,7 @@ public class UserController {
 
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
         if(errorMap != null)return errorMap;
-
+        user.setStatus("active");
         User newUser = userService.saveUser(user);
 
         return  new ResponseEntity<User>(newUser, HttpStatus.CREATED);
@@ -77,7 +77,9 @@ public class UserController {
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = TOKEN_PREFIX +  tokenProvider.generateToken(authentication);
-
+        if(userService.getUserByUsername(loginRequest.getUsername()).getStatus().equals("banned")){
+            return new ResponseEntity<>(new JWTLoginSucessReponse(false, null),HttpStatus.FORBIDDEN);
+        }
         return ResponseEntity.ok(new JWTLoginSucessReponse(true, jwt));
     }
 
@@ -134,6 +136,24 @@ public class UserController {
         }else{
             updatedUser = userService.updateUser_noPwdChange(user);
         }
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    @PutMapping("ban/{id}")
+    public ResponseEntity<?> banUser(@PathVariable Long id){
+        final User updatedUser;
+        User user = userService.getUserByID(id);
+        user.setStatus("banned");
+        updatedUser = userService.updateUser_noPwdChange(user);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    @PutMapping("unban/{id}")
+    public ResponseEntity<?> unbanUser(@PathVariable Long id){
+        final User updatedUser;
+        User user = userService.getUserByID(id);
+        user.setStatus("active");
+        updatedUser = userService.updateUser_noPwdChange(user);
         return ResponseEntity.ok(updatedUser);
     }
 

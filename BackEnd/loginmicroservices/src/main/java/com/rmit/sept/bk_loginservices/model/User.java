@@ -29,6 +29,7 @@ public class User implements UserDetails {
     @Transient
     private String confirmPassword;
     private AccountType accountType;
+    private String status;
     private Date create_At;
     private Date update_At;
 
@@ -151,5 +152,13 @@ public class User implements UserDetails {
 
     public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
+    }
+    
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

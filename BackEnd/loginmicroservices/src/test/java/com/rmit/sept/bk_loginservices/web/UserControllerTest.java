@@ -4,6 +4,7 @@ import com.rmit.sept.bk_loginservices.AccountType;
 import com.rmit.sept.bk_loginservices.exceptions.UsernameAlreadyExistsException;
 import com.rmit.sept.bk_loginservices.exceptions.UsernameAlreadyExistsResponse;
 import com.rmit.sept.bk_loginservices.model.User;
+import com.rmit.sept.bk_loginservices.payload.LoginRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -33,6 +34,9 @@ class UserControllerTest {
         User user2 = new User("test2@test.com", "Jane Doe", "passwordTEST", "passwordTEST");
         result = new BeanPropertyBindingResult(user2, "user2");
         userController.registerUser(user2, result);
+        User user3 = new User("test3@test.com", "Jim Do", "qwertyuiop", "qwertyuiop");
+        result = new BeanPropertyBindingResult(user3, "user3");
+        userController.registerUser(user3, result);
     }
 
     @Test
@@ -152,6 +156,16 @@ class UserControllerTest {
         ResponseEntity<?> response  = userController.getUserByUsername("test4@test.com");
         User retVal = (User) response.getBody();
         assertEquals(AccountType.ADMIN, retVal.getAccountType());
+    }
+
+    @Test
+    void whenIDIsGiven_userBanSucceeds(){
+        LoginRequest lr = new LoginRequest();
+        lr.setUsername("test3@test.com");
+        lr.setPassword("qwertyuiop");
+        result = new BeanPropertyBindingResult(lr, "lr");
+        userController.banUser(3L);
+        assertEquals(403,userController.authenticateUser(lr,result).getStatusCodeValue());
     }
 
 
