@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import PropTypes from "prop-types";
 import {getBook} from "../actions/bookActions";
-import MsgAlerts from "./Test"
 import {connect} from "react-redux";
 import {Container} from "@material-ui/core";
 import {Table} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 
-const booksin = []
+// const bookList = []
 
 class BookListing extends Component {
     constructor(){
@@ -14,6 +14,8 @@ class BookListing extends Component {
 
         this.state= {
             id: "",
+            bookList:[],
+            listStatus: "Books Found"
         };
 
         this.onSubmit = this.onSubmit.bind(this);
@@ -23,16 +25,16 @@ class BookListing extends Component {
     async onSubmit(e){
         this.setState({[e.target.name]: e.target.value});
         e.preventDefault();
-
-
         const data = await this.props.getBook();
 
-        console.log(data);
-        booksin.splice(0, booksin.length)
-        data.forEach(book => {
-            console.log(book)
-            booksin.push(book)
-        })
+        if(data){
+            console.log(data);
+            this.setState({bookList: data.slice()});
+        }
+        else{
+            console.log("no books")
+            this.setState({listStatus: "book not found"})
+        }
 
     }
 
@@ -41,11 +43,11 @@ class BookListing extends Component {
         return (
             <Container>
                 <form onSubmit={this.onSubmit}>
-                    <input type="submit" value="Show" className="btn btn-primary btn-block mt-4" />
+                    <Button variant="dark" type="submit">Show</Button>{' '}
                     <p>Double click the button</p>
                 </form>
 
-                <h2 color={"green"}>{"\n"}Books found {"\n"}</h2>
+                <h2 color={"green"}>{"\n"}{this.state.listStatus}{"\n"}</h2>
                 <br/>
                 <br/>
                 <Table striped bordered hover variant="dark">
@@ -58,7 +60,7 @@ class BookListing extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {booksin.map((book => <tr>
+                    {this.state.bookList.map((book => <tr>
                         <td>{book.id}</td>
                         <td>{book.title}</td>
                         <td>{book.author}</td>
