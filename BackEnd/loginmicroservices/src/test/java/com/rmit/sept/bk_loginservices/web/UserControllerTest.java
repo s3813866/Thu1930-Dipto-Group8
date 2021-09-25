@@ -1,5 +1,6 @@
 package com.rmit.sept.bk_loginservices.web;
 
+import com.rmit.sept.bk_loginservices.AccountType;
 import com.rmit.sept.bk_loginservices.exceptions.UsernameAlreadyExistsException;
 import com.rmit.sept.bk_loginservices.exceptions.UsernameAlreadyExistsResponse;
 import com.rmit.sept.bk_loginservices.model.User;
@@ -49,6 +50,9 @@ class UserControllerTest {
         assertEquals(toUpdate.getFullName(), testResult.getFullName());
         assertEquals(toUpdate.getPassword(), testResult.getPassword());
 
+        updateVal = new User("test1@test.com", null, null, null);
+        response = userController.editUser(1L, updateVal,result);
+
     }
 
     @Test
@@ -65,6 +69,9 @@ class UserControllerTest {
 
         assertEquals(toUpdate.getUsername(), testResult.getUsername());
         assertEquals(toUpdate.getPassword(), testResult.getPassword());
+
+        updateVal = new User(null, "Jane Doe", null, null);
+        response = userController.editUser(2L, updateVal,result);
     }
 
     @Test
@@ -81,6 +88,9 @@ class UserControllerTest {
 
         assertEquals(toUpdate.getFullName(), testResult.getFullName());
         assertEquals(toUpdate.getUsername(), testResult.getUsername());
+
+        updateVal = new User(null, null, "testPASSWORD", "testPASSWORD");
+        response = userController.editUser(1L, updateVal,result);
 
     }
 
@@ -124,6 +134,24 @@ class UserControllerTest {
 
         //Process edit user request, should fail update
         assertThrows(UsernameAlreadyExistsException.class, ()-> {userController.editUser(1L, updateVal,result);});
+    }
+
+    @Test
+    void whenNewUserHasNoSpecificType_thenTypeIsCustomer(){
+        ResponseEntity<?> response  = userController.getUserByID(1L);
+        User retVal = (User) response.getBody();
+        assertEquals(AccountType.CUSTOMER, retVal.getAccountType());
+    }
+
+    @Test
+    void whenNewUserTypeisSpecified_thenTypeIsAdmin(){
+        User testUser = new User("test4@test.com", "William Doe", "qwertyuiop", "qwertyuiop");
+        testUser.setAccountType(AccountType.ADMIN);
+        result = new BeanPropertyBindingResult(testUser, "testUser");
+        userController.registerUser(testUser, result);
+        ResponseEntity<?> response  = userController.getUserByUsername("test4@test.com");
+        User retVal = (User) response.getBody();
+        assertEquals(AccountType.ADMIN, retVal.getAccountType());
     }
 
 

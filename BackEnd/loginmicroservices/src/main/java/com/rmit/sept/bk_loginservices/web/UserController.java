@@ -91,6 +91,18 @@ public class UserController {
         }
     }
 
+    //Send GET as URL with structure /api/users/search?username={username}
+    // (e.g. /api/users/search?username=test@test.com).
+    @GetMapping("/search")
+    public ResponseEntity<?> getUserByUsername(@RequestParam(required = false)  String username){
+        User toGet = userService.getUserByUsername(username);
+        if(toGet != null){
+            return new ResponseEntity<>(toGet, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
     // To use this command, include the id number of the user to edit in the URL, and POST with a JSON body
     // of the attributes to change.  Any attributes that are not being changed should be left out of the JSON body.
     @PutMapping("edit/{id}")
