@@ -30,10 +30,11 @@ class BookListing extends Component {
         if(data){
             console.log(data);
             this.setState({bookList: data.slice()});
+            this.setState({listStatus: "Book found"})
         }
         else{
-            console.log("no books")
             this.setState({listStatus: "book not found"})
+
         }
 
     }

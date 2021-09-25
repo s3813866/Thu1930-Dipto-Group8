@@ -1,55 +1,78 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import {Button, Table} from "react-bootstrap";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import {connect} from "react-redux";
+import {getAuthor} from "../../actions/bookActions";
 
 class Search extends Component {
     constructor() {
         super();
-        let qtype;
+
         this.state = {
             search: "",
-            qtype: "",
-            errors: {}
+            author: "",
+            title: "",
+            category: "",
+            errors: {},
+            searchType: "titleSearch",
+            books: []
         };
+
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.errors) {
+            this.setState({
+                errors: nextProps.errors
+            });
+
+        }
     }
 
     onChange(e) {
-        console.log("onchange");
         this.setState({ [e.target.name]: e.target.value });
     }
 
-    onClick(e){
-        this.state.qtype = e.name;
+    async handleClick(e){
+        e.preventDefault();
+        await this.setState({searchType: e.target.name});
     }
 
-    onSubmit(e) {
-        console.log(true);
-        let query = this.state.search;
-        if (query.includes(' ')) {
-            query.replace(' ', '%20');
-            console.log(query);
+    async onSubmit(e) {
+        e.preventDefault();
+
+        if (this.state.searchType === "titleSearch") {
+            //have to wait for backend
+            // const title = {
+            //     title: this.state.title,
+            // }
+            // const data = await
+        }else if (this.state.searchType === "authorSearch") {
+            const newAuthor = {
+                author: this.state.author,
+            }
+            console.log("here")
+            const data = await this.props.getAuthor(newAuthor, this.props.history);
+            this.setState({books: data.slice()})
+
+
+        } else if (this.state.searchType === "catSearch"){
+            //have to wait for backend
         }
 
-        if (this.state.qtype == "titleSearch") {
-            
-        }else if (this.state.qtype == "authorSearch") {
-            // let result = fetch(`http://localhost:8080/api/books/author?author=${query}`);
-            console.log("searching for author");
-            
-        } else if (this.state.qtype == "catSearch"){
-            
-        }
     }
 
     render() {
+        const {errors} = this.state;
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-md-8 m-auto">
                         <h1 className="display-4 text-center">Search</h1>
-                        <form onSubmit={this.onSubmit}>
+                        <form onSubmit={this.onSubmit} data-testid="SearchForm">
                             <div className="form-group">
                                 <input
                                     type="text"
@@ -60,15 +83,45 @@ class Search extends Component {
                                     onChange = {this.onChange}
                                 />
                             </div>
-                            <input type="submit" name="titleSearch" value="Search by Title" className="btn btn-info btn-block mt-3" />
-                            <input type="submit" name="authorSearch" value="Search by Author" className="btn btn-info btn-block mt-3" />
-                            <input type="submit" name="catSearch" value="Search by Category" className="btn btn-info btn-block mt-3" />
+                            <input onClick={this.handleClick} name="titleSearch" value="Search by Title" className="btn btn-info btn-block mt-3" />{'  '}
+                            <input onClick={this.handleClick} name="authorSearch" value="Search by Author" className="btn btn-info btn-block mt-3" />{'  '}
+                            <input onClick={this.handleClick} name="catSearch" value="Search by Category" className="btn btn-info btn-block mt-3" />
+                            <br/>
+                            <br/>
+                            <br/>
+                            <Button type="submit" variant="outline-primary" >Search</Button>{' '}
+                            <br/>
+                            <br/>
+                            <br/>
                         </form>
                     </div>
+
+                    <h2>Books found</h2>
+                    <Table striped bordered hover variant="dark">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Category</th>
+                            <th>View</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {this.state.books.map((book => <tr key={book.id}>
+                            <td>{book.title}</td>
+                            <td>{book.author}</td>
+                            <td>{book.category}</td>
+                        </tr>))}
+                        </tbody>
+                    </Table>
                 </div>
             </div>
         )
     }
 }
 
-export default Search
+Search.propTypes = {
+    createProject: PropTypes.func.isRequired
+};
+
+export default connect(null, {getAuthor})(Search);
