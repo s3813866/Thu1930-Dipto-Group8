@@ -3,12 +3,9 @@ import PropTypes from "prop-types";
 import {createBook, getAuthor, getBook} from "../actions/bookActions";
 import {connect, Provider} from "react-redux";
 import {Container} from "@material-ui/core";
-
 import {Table} from "react-bootstrap";
-import store from "../store";
 
-
-const titles = []
+const n = "something"
 
 class GetBookByAuthor extends Component {
     constructor() {
@@ -16,6 +13,7 @@ class GetBookByAuthor extends Component {
 
         this.state = {
             author: "",
+            names: []
         };
 
         this.onChange = this.onChange.bind(this);
@@ -38,23 +36,21 @@ class GetBookByAuthor extends Component {
 
     async onSubmit(e) {
         e.preventDefault();
-        const newAuthor = {
+        if(n === "something"){
+            const newAuthor = {
 
-            author: this.state.author,
+                author: this.state.author,
+            }
+
+            const data = await this.props.getAuthor(newAuthor, this.props.history);
+            if(data){
+                this.setState({names: data.slice()})
+            }
+            else{
+                console.log("no data")
+            }
         }
 
-        const data = await this.props.getAuthor(newAuthor, this.props.history);
-        if(data){
-            console.log(data)
-            titles.splice(0, titles.length)
-            data.forEach(book => {
-                console.log(book)
-                titles.push(book)
-            })
-        }
-        else{
-            console.log("no data")
-        }
 
     }
 
@@ -62,7 +58,6 @@ class GetBookByAuthor extends Component {
     render() {
         const {errors} = this.state;
         return (
-            <Provider store={store}>
                 <Container>
                     <h2>Search your favourite author</h2>
                     <form onSubmit={this.onSubmit} data-testid="form">
@@ -90,7 +85,7 @@ class GetBookByAuthor extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                        {titles.map((book => <tr>
+                        {this.state.names.map((book => <tr>
                             <td>{book.id}</td>
                             <td>{book.title}</td>
                             <td>{book.author}</td>
@@ -99,8 +94,6 @@ class GetBookByAuthor extends Component {
                         </tbody>
                     </Table>
                 </Container>
-
-            </Provider>
         )
     }
 }
