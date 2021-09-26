@@ -1,9 +1,9 @@
 import React, {Component} from "react";
-import bookstore from "./library.jpg";
+import bookstore from "../components/Images/library.jpg";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Card, CardGroup, Container} from "react-bootstrap";
 import {Button} from "react-bootstrap";
-import SingleBook from "./single-red-book-isolated-white-background-113636020.jpg";
+import SingleBook from "../components/Images/single-red-book-isolated-white-background-113636020.jpg";
 
 const books = [
     "Book 1",
