@@ -31,7 +31,19 @@ public class BookService {
 
     @Transactional
     public List<Book> getBooksByAuthor(String author){
-        List<Book> books = bookrepository.getBooksByAuthorContains(author);
+        List<Book> books = bookrepository.getBooksByAuthorIgnoreCaseContaining(author);
+        return books;
+    }
+
+    @Transactional
+    public  List<Book> getBooksByTitle(String title){
+        List<Book> books = bookrepository.getBooksByTitleIgnoreCaseContaining(title);
+        return books;
+    }
+
+    @Transactional
+    public List<Book> getBooksByCategory(String category){
+        List<Book> books = bookrepository.getBooksByCategoryIgnoreCaseContaining(category);
         return books;
     }
 

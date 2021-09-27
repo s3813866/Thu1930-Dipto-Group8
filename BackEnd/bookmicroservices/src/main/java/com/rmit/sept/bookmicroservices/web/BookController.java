@@ -75,6 +75,26 @@ public class BookController {
         }
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<?> getBooksByQuery(@RequestParam(required = false) String title,
+                                             @RequestParam(required = false) String author,
+                                             @RequestParam(required = false) String category){
+        List<Book> booksByQuery = null;
+        //Checks which parameter was used to perform a search
+        if(title != null){
+            booksByQuery = bookservice.getBooksByTitle(title);
+        }else if(author != null){
+            booksByQuery = bookservice.getBooksByAuthor(author);
+        }else if(category != null){
+            booksByQuery = bookservice.getBooksByCategory(category);
+        }
+        if(booksByQuery.size() > 0){
+            return ResponseEntity.ok(booksByQuery);
+        }else{
+            return new ResponseEntity<>(booksByQuery, HttpStatus.NO_CONTENT);
+        }
+    }
+
     @PutMapping("/edit/{id}")
     public ResponseEntity editBook(@PathVariable Long id, @RequestBody Book newDetails,
                                    BindingResult result){

@@ -12,6 +12,8 @@ public interface BookRepository extends CrudRepository<Book, Long>{
     Book getById(Long id);
     Book findByTitle(String title);
     Book getByISBN(String ISBN);
-    List<Book> getBooksByAuthorContains(String author);
+    List<Book> getBooksByAuthorIgnoreCaseContaining(String author);
+    List<Book> getBooksByTitleIgnoreCaseContaining(String title);
+    List<Book> getBooksByCategoryIgnoreCaseContaining(String category);
 
 }
