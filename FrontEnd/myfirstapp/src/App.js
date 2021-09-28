@@ -19,6 +19,7 @@ import Homepage from "./pages/Homepage";
 import CustomizedSnackbars from "./pages/Test";
 import BookListing from "./pages/BookListing";
 import UserRequests from "./components/UserManagement/UserRequests";
+import Enquiry from "./pages/Enquiry";
 
 class App extends Component {
   render() {
@@ -44,6 +45,7 @@ class App extends Component {
               <Route exact path="/test" component={CustomizedSnackbars} />
               <Route exact path="/BookListing" component={BookListing} />
               <Route exact path="/UserRequest" component={UserRequests} />
+              <Route exact path="/Enquiry" component={Enquiry} />
 
             <Route exact path="/search" component={Search} />
             {/* <Route exact path="/results" component={Search} /> */}
