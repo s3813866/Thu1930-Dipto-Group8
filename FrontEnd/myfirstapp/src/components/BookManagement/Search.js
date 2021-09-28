@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Button, Card, ListGroup, ListGroupItem, Table} from "react-bootstrap";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {getAuthor} from "../../actions/bookActions";
+import {getAuthor, getCategory, getTitle} from "../../actions/bookActions";
 import MuiAlert from "@mui/material/Alert";
 import Snackbar from '@mui/material/Snackbar';
 import Grid from "@material-ui/core/Grid";
@@ -24,7 +24,7 @@ class Search extends Component {
             title: "",
             category: "",
             errors: {},
-            searchType: "Title",
+            searchType: "title",
             books: [],
         };
 
@@ -59,14 +59,22 @@ class Search extends Component {
     async onSubmit(e) {
         e.preventDefault();
 
-        if (this.state.searchType === "Title") {
+        if (this.state.searchType === "title") {
             //have to wait for backend
             const title = {
                 title: this.state.title,
             }
-            // const data = await
-            // this.setState({books: data.slice()})
-        }else if (this.state.searchType === "Author") {
+            // console.log(title.title);
+            const data = await this.props.getTitle(title, this.props.history);
+            if(data){
+                this.setState({books: data.slice()})
+                this.setState({alertState: true})
+            }
+            else{
+                this.setState({alertState: true})
+            }
+
+        }else if (this.state.searchType === "author") {
             const newAuthor = {
                 author: this.state.author
             }
@@ -79,9 +87,20 @@ class Search extends Component {
                 this.setState({alertState: true})
             }
 
-        } else if (this.state.searchType === "Category"){
+        } else if (this.state.searchType === "category"){
             const category = {
-                title: this.state.category,
+                category: this.state.category,
+            }
+
+            console.log(category.category);
+            const data = await this.props.getCategory(category, this.props.history);
+
+            if(data){
+                this.setState({books: data.slice()})
+                this.setState({alertState: true})
+            }
+            else{
+                this.setState({alertState: true})
             }
         }
 
@@ -99,13 +118,13 @@ class Search extends Component {
                             <div className="form-group">
                                 <input type="text" className="form-control form-control-lg"
                                        placeholder="Author"
-                                       name="author"
+                                       name={this.state.searchType}
                                        onChange={this.onChange}
                                 />
                             </div>
-                            <input onClick={this.handleClick} name="Title" value="Search by Title" className="btn btn-info btn-block mt-3" />{'  '}
-                            <input onClick={this.handleClick} name="Author" value="Search by Author" className="btn btn-info btn-block mt-3" />{'  '}
-                            <input onClick={this.handleClick} name="Category" value="Search by Category" className="btn btn-info btn-block mt-3" />
+                            <input onClick={this.handleClick} name="title" value="Search by Title" className="btn btn-info btn-block mt-3" />{'  '}
+                            <input onClick={this.handleClick} name="author" value="Search by Author" className="btn btn-info btn-block mt-3" />{'  '}
+                            <input onClick={this.handleClick} name="category" value="Search by Category" className="btn btn-info btn-block mt-3" />
                             <br/>
                             <br/>
                             <br/>
@@ -153,4 +172,4 @@ Search.propTypes = {
     createProject: PropTypes.func.isRequired
 };
 
-export default connect(null, {getAuthor})(Search);
+export default connect(null, {getAuthor, getTitle, getCategory})(Search);
