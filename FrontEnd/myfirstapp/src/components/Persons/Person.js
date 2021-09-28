@@ -28,9 +28,10 @@ class Person extends Component {
                                             </a>
                                             <a href="">
                                                 <li className="list-group-item delete">
-                                                    <i className="fa fa-minus-circle pr-1"> Delete Person</i>
+                                                    <i className="fa fa-minus-circle pr-1"> Ban User</i>
                                                 </li>
                                             </a>
+
                                         </ul>
                                     </div>
                                 </div>

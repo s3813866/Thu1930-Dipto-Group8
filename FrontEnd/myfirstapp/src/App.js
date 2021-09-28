@@ -13,12 +13,12 @@ import Login from "./components/UserManagement/Login";
 import AddBook from "./pages/AddBook";
 import BookAdded from "./pages/BookAdded";
 import GetBookByAuthor from "./pages/getBookByAuthor";
-import GetBookById from "./pages/getBookById";
 import Search from "./components/BookManagement/Search";
 import PageNotFound from "./pages/404notfound";
 import Homepage from "./pages/Homepage";
 import CustomizedSnackbars from "./pages/Test";
 import BookListing from "./pages/BookListing";
+import UserRequests from "./components/UserManagement/UserRequests";
 
 class App extends Component {
   render() {
@@ -32,9 +32,6 @@ class App extends Component {
             }
 
             <Switch>
-
-
-
             {/*<Route exact path="/" component={Landing} />*/}
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
@@ -46,6 +43,7 @@ class App extends Component {
             <Route exact path="/home" component={Homepage} />
               <Route exact path="/test" component={CustomizedSnackbars} />
               <Route exact path="/BookListing" component={BookListing} />
+              <Route exact path="/UserRequest" component={UserRequests} />
 
             <Route exact path="/search" component={Search} />
             {/* <Route exact path="/results" component={Search} /> */}

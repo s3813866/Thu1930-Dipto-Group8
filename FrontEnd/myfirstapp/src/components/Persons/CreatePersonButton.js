@@ -6,7 +6,7 @@ import {link, Link} from "react-router-dom";
         <React.Fragment>
         <Link to="/register"
         className="btn btn-lg btn-info">
-        Create a Person
+        Create an admin account
         </Link>
         </React.Fragment>
     )
