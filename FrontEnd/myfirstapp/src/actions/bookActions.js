@@ -1,5 +1,6 @@
 import axios from "axios";
-import {GET_ERRORS, GET_AUTHOR, GET_BOOK, GET_BOOKS} from "./types";
+import {GET_ERRORS, GET_AUTHOR, GET_BOOK, GET_BOOKS, GET_TITLE, GET_CATEGORY} from "./types";
+import * as constants from "constants";
 
 export const createBook = (book, history) => async dispatch => {
     try {
@@ -23,6 +24,40 @@ export const getAuthor = (author, history) => async dispatch => {
         const res = await axios.get(`${LINK}?author=${author.author}`);
         dispatch({
             type: GET_AUTHOR,
+            payload: res.data
+        });
+
+        return res.data
+    } catch (error) {
+        history.push("/error");
+    }
+
+};
+
+export const getTitle = (title, history) => async dispatch => {
+    const LINK = `/api/books/search`;
+
+    try {
+        const res = await axios.get(`${LINK}?title=${title.title}`);
+        dispatch({
+            type: GET_TITLE,
+            payload: res.data
+        });
+        console.log(res.data)
+
+        return res.data
+    } catch (error) {
+        history.push("/error");
+    }
+
+};
+
+export const getCategory = (category, history) => async dispatch => {
+    const LINK = `/api/books/search`;
+    try {
+        const res = await axios.get(`${LINK}?category=${category.category}`);
+        dispatch({
+            type: GET_CATEGORY,
             payload: res.data
         });
 

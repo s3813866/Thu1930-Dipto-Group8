@@ -58,6 +58,9 @@ public class BookController {
         }
     }
 
+    //
+    //DEPRECATED: Use getBooksByQuery to search for books
+    //
     //Send GET as URL with structure /api/books/author?author={author}
     // (e.g. /api/books/author?author=qwerty).
     //To use spaces for search, replace spaces in query with "%20"
@@ -72,6 +75,32 @@ public class BookController {
             return ResponseEntity.ok(booksByAuthor);
         }else{
             return new ResponseEntity<>(booksByAuthor, HttpStatus.NO_CONTENT);
+        }
+    }
+
+    //Send GET as URL with structure /api/books/search?<query>={term}, query is not case sensitive.
+
+    //Usage: When making a request to this function, attach the desired parameter to the URL
+    //(e.g. searching for title: /api/books/search?title=qwerty
+    //      searching for author: /api/books/search?author=qwerty
+    //      searching for category: /api/books/search?category=qwerty
+    @GetMapping("/search")
+    public ResponseEntity<?> getBooksByQuery(@RequestParam(required = false) String title,
+                                             @RequestParam(required = false) String author,
+                                             @RequestParam(required = false) String category){
+        List<Book> booksByQuery = null;
+        //Checks which parameter was used to perform a search
+        if(title != null){
+            booksByQuery = bookservice.getBooksByTitle(title);
+        }else if(author != null){
+            booksByQuery = bookservice.getBooksByAuthor(author);
+        }else if(category != null){
+            booksByQuery = bookservice.getBooksByCategory(category);
+        }
+        if(booksByQuery.size() > 0){
+            return ResponseEntity.ok(booksByQuery);
+        }else{
+            return new ResponseEntity<>(booksByQuery, HttpStatus.NO_CONTENT);
         }
     }
 
