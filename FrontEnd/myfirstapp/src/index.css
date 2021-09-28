@@ -33,6 +33,19 @@ figcaption {
 table{
   font-size: 1.9em;
 }
+.fas.fa-user-check{
+  color:blue;
+}
+
+.far.fa-question-circle{
+  color:peru;
+}
+.fas.fa-sun{
+  color:gold;
+}
+.fas.fa-moon{
+  color:lightslategray;
+}
 
 
 

@@ -72,6 +72,7 @@ render() {
                   required
                   onChange = {this.onChange}
                 />
+                <br/>
                 {errors.name && (
                     <div className= "invalid-feedback">{errors.name}</div>
                 )}
@@ -85,6 +86,7 @@ render() {
                   onChange = {this.onChange}
                 />
               </div>
+              <br/>
               <div className="form-group">
                 <input
                   type="password"
@@ -94,6 +96,7 @@ render() {
                   onChange = {this.onChange}
                 />
               </div>
+              <br/>
               <div className="form-group">
                 <input
                   type="password"
@@ -103,6 +106,7 @@ render() {
                   onChange = {this.onChange}
                 />
               </div>
+              <br/>
               <input type="submit" className="btn btn-info btn-block mt-4" />
             </form>
           </div>
