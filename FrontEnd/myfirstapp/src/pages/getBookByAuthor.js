@@ -50,8 +50,6 @@ class GetBookByAuthor extends Component {
                 console.log("no data")
             }
         }
-
-
     }
 
 

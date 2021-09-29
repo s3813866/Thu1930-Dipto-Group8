@@ -23,7 +23,6 @@ class BookListing extends Component {
     }
 
     async onSubmit(e){
-        this.setState({[e.target.name]: e.target.value});
         e.preventDefault();
         const data = await this.props.getBook();
 
