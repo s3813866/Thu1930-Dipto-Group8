@@ -61,4 +61,13 @@ public class BookService {
         }
     }
 
+    public boolean deleteBookByID(Long id){
+        try{
+            bookrepository.deleteById(id);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
 }

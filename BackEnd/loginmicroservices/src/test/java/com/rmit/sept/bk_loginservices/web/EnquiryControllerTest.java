@@ -1,6 +1,7 @@
 package com.rmit.sept.bk_loginservices.web;
 
 import com.rmit.sept.bk_loginservices.model.Enquiry;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -17,6 +18,8 @@ class EnquiryControllerTest {
     @Autowired
     EnquiryController enquiryController;
 
+    private Enquiry testEnquiry;
+
     @BeforeAll
     public void setUp(){
 
@@ -28,6 +31,8 @@ class EnquiryControllerTest {
         BindingResult result = new BeanPropertyBindingResult(newEnq, "newEnq");
         Enquiry retVal = (Enquiry) enquiryController.submitEnquiry(newEnq, result).getBody();
         Enquiry testResult = (Enquiry) enquiryController.getEnquiry(retVal.getId()).getBody();
+        testEnquiry = retVal;
+        System.out.println(testEnquiry.getId());
 
         assertEquals(newEnq.getName(), testResult.getName());
         assertEquals(newEnq.getEmail(), testResult.getEmail());
@@ -39,8 +44,7 @@ class EnquiryControllerTest {
     public void whenEmailIsNotCorrectFormat_thenSubmitFails(){
         Enquiry newEnq = new Enquiry("jane", "janetest.com", "test subject", "test message");
         BindingResult result = new BeanPropertyBindingResult(newEnq, "newEnq");
-        enquiryController.submitEnquiry(newEnq, result);
-        Enquiry testResult = (Enquiry) enquiryController.getEnquiry(1L).getBody();
+        Enquiry testResult = (Enquiry) enquiryController.submitEnquiry(newEnq, result).getBody();
 
         assertNull(testResult);
     }
@@ -49,8 +53,7 @@ class EnquiryControllerTest {
     public void whenNameDoesNotExist_thenSubmitFails(){
         Enquiry newEnq = new Enquiry(null, "jane@test.com", "test subject", "test message");
         BindingResult result = new BeanPropertyBindingResult(newEnq, "newEnq");
-        enquiryController.submitEnquiry(newEnq, result);
-        Enquiry testResult = (Enquiry) enquiryController.getEnquiry(1L).getBody();
+        Enquiry testResult = (Enquiry) enquiryController.submitEnquiry(newEnq, result).getBody();
 
         assertNull(testResult);
     }
@@ -59,8 +62,7 @@ class EnquiryControllerTest {
     public void whenEmailDoesNotExist_thenSubmitFails(){
         Enquiry newEnq = new Enquiry("jane", null, "test subject", "test message");
         BindingResult result = new BeanPropertyBindingResult(newEnq, "newEnq");
-        enquiryController.submitEnquiry(newEnq, result);
-        Enquiry testResult = (Enquiry) enquiryController.getEnquiry(1L).getBody();
+        Enquiry testResult = (Enquiry) enquiryController.submitEnquiry(newEnq, result).getBody();
 
         assertNull(testResult);
     }
@@ -69,8 +71,7 @@ class EnquiryControllerTest {
     public void whenSubjectDoesNotExist_thenSubmitFails(){
         Enquiry newEnq = new Enquiry("jane", "jane@test.com", null , "test message");
         BindingResult result = new BeanPropertyBindingResult(newEnq, "newEnq");
-        enquiryController.submitEnquiry(newEnq, result);
-        Enquiry testResult = (Enquiry) enquiryController.getEnquiry(1L).getBody();
+        Enquiry testResult = (Enquiry) enquiryController.submitEnquiry(newEnq, result).getBody();
 
         assertNull(testResult);
     }
@@ -79,8 +80,7 @@ class EnquiryControllerTest {
     public void whenMessageDoesNotExist_thenSubmitFails(){
         Enquiry newEnq = new Enquiry("jane", "jane@test.com", "test subject", null);
         BindingResult result = new BeanPropertyBindingResult(newEnq, "newEnq");
-        enquiryController.submitEnquiry(newEnq, result);
-        Enquiry testResult = (Enquiry) enquiryController.getEnquiry(1L).getBody();
+        Enquiry testResult = (Enquiry) enquiryController.submitEnquiry(newEnq, result).getBody();
 
         assertNull(testResult);
     }
@@ -96,6 +96,11 @@ class EnquiryControllerTest {
         enquiryController.deleteEnquiry(retVal.getId());
         testResult = (Enquiry) enquiryController.getEnquiry(retVal.getId()).getBody();
         assertNull(testResult);
+    }
+
+    @AfterAll
+    public void tearDown(){
+        enquiryController.deleteEnquiry(testEnquiry.getId());
     }
 
 }

@@ -79,5 +79,14 @@ public class UserService {
         }
     }
 
+    public boolean deleteUserByID(Long id){
+        try{
+            userRepository.deleteById(id);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
 
 }
