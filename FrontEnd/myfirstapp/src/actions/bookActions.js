@@ -34,6 +34,29 @@ export const getAuthor = (author, history) => async dispatch => {
 
 };
 
+
+/* Test: EDITBOOK ACTION */
+export const editBook = (book, history) => async dispatch => {
+    const LINK = `/api/books/edit/1`;
+    try {
+        //const data = await axios.put(`${LINK}/${book.id}`);
+        const data = await axios.put(`${LINK}`, book);
+        console.log("PUT Method Running");
+        dispatch({
+            type: "EDIT_BOOK",
+            payload: {data}
+        });
+    } catch (err) {
+        history.push("/error");
+        dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+        });
+    }
+
+};
+/* Test End: EDITBOOK ACTION */
+
 export const getTitle = (title, history) => async dispatch => {
     const LINK = `/api/books/search`;
 

@@ -20,6 +20,8 @@ import CustomizedSnackbars from "./pages/Test";
 import BookListing from "./pages/BookListing";
 import UserRequests from "./components/UserManagement/UserRequests";
 
+import EditBookForm from "./pages/EditBookForm";
+
 class App extends Component {
   render() {
     return (
@@ -44,6 +46,10 @@ class App extends Component {
               <Route exact path="/test" component={CustomizedSnackbars} />
               <Route exact path="/BookListing" component={BookListing} />
               <Route exact path="/UserRequest" component={UserRequests} />
+
+            {/* Edit Book Form*/}
+            <Route exact path="/EditBookForm" component={EditBookForm} />
+
 
             <Route exact path="/search" component={Search} />
             {/* <Route exact path="/results" component={Search} /> */}
