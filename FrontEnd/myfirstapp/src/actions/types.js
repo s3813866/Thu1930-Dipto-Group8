@@ -14,7 +14,6 @@ export const GET_CATEGORY = "GET_CATEGORY";
 
 
 export const GET_ENQUIRIES = "GET_ENQUIRIES";
-export const DELETE_ENQUIRY = "DELETE_ENQUIRY";
 
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 

@@ -26,6 +26,7 @@ public class Book {
     private String ISBN;
     @NotBlank(message = "Category is required")
     private String category;
+    @Column(length = 700)
     @NotBlank(message = "Description is required")
     private String description;
 

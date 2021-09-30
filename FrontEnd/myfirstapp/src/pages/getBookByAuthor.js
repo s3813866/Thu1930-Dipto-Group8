@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from "prop-types";
-import {createBook, getAuthor, getBook} from "../actions/bookActions";
+import {getAuthor} from "../actions/bookActions";
 import {connect, Provider} from "react-redux";
 import {Container} from "@material-ui/core";
 import {Table} from "react-bootstrap";
@@ -34,7 +34,7 @@ class GetBookByAuthor extends Component {
         this.setState({[e.target.name]: e.target.value});
     }
 
-    async onSubmit(e) {
+    onSubmit(e) {
         e.preventDefault();
         if(n === "something"){
             const newAuthor = {
@@ -42,9 +42,10 @@ class GetBookByAuthor extends Component {
                 author: this.state.author,
             }
 
-            const data = await this.props.getAuthor(newAuthor, this.props.history);
+            const data = this.props.getAuthor(newAuthor, this.props.history);
             if(data){
-                this.setState({names: data.slice()})
+                // this.setState({names: data.slice()})
+                console.log(data)
             }
             else{
                 console.log("no data")
@@ -100,5 +101,5 @@ GetBookByAuthor.propTypes = {
     createProject: PropTypes.func.isRequired
 };
 
-export default connect(null, {getAuthor, getBook})(GetBookByAuthor);
+export default connect(null, {getAuthor})(GetBookByAuthor);
 export {GetBookByAuthor};

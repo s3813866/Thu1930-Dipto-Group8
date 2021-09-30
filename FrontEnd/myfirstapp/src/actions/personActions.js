@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ERRORS, GET_PERSONS, GET_PERSON } from "./types";
+import {GET_ERRORS, GET_PERSONS, GET_PERSON, BAN_PERSON} from "./types";
 
 export const createPerson = (person, history) => async dispatch => {
   try {
@@ -31,3 +31,37 @@ export const getPerson = (id, history) => async dispatch => {
     history.push("/dashboard");
   }
 };
+
+export const banUser= (id) => async dispatch => {
+
+  try{
+    const LINK = `/api/users/ban/`
+    const res = await axios.put(`${LINK}${id.id}`);
+    dispatch({
+      type: BAN_PERSON,
+      payload: res.data
+    });
+
+    return res.data;
+
+  }catch(error){
+
+  }
+}
+
+export const unbanUser= (id) => async dispatch => {
+
+  try{
+    const LINK = `/api/users/unban/`
+    const res = await axios.put(`${LINK}${id.id}`);
+    dispatch({
+      type: BAN_PERSON,
+      payload: res.data
+    });
+
+    return res.data;
+
+  }catch(error){
+
+  }
+}

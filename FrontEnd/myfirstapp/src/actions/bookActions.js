@@ -1,6 +1,7 @@
 import axios from "axios";
+import { useDispatch } from 'react-redux';
 import {GET_ERRORS, GET_AUTHOR, GET_BOOK, GET_BOOKS, GET_TITLE, GET_CATEGORY} from "./types";
-import * as constants from "constants";
+
 
 export const createBook = (book, history) => async dispatch => {
     try {
@@ -43,7 +44,6 @@ export const getTitle = (title, history) => async dispatch => {
             type: GET_TITLE,
             payload: res.data
         });
-        console.log(res.data)
 
         return res.data
     } catch (error) {
@@ -56,6 +56,7 @@ export const getCategory = (category, history) => async dispatch => {
     const LINK = `/api/books/search`;
     try {
         const res = await axios.get(`${LINK}?category=${category.category}`);
+        console.log(res.data)
         dispatch({
             type: GET_CATEGORY,
             payload: res.data
@@ -70,17 +71,30 @@ export const getCategory = (category, history) => async dispatch => {
 
 
 
-export const getBook = () => async dispatch => {
-    try {
-        const res = await axios.get(`/api/books/`);
-        dispatch({
-            type: GET_BOOK,
-            payload: res.data
-        });
-        return res.data
-    } catch (error) {
-        console.log("error")
-    }
+export const getBookByID = (id) => async dispatch => {
+
+    const dis = useDispatch();
+    return await axios.get(`/api/books/${id}`).then(({data}) => {
+        dis({
+                     type: GET_BOOK,
+                    payload: data
+                 })
+    })
+    // try {
+    //     const LINK = `/api/books/`;
+    //     const res = await axios.get(`${LINK}${id}`);
+    //     console.log("here");
+    //     console.log(res.data);
+    //
+    //
+    //     return res.data;
+    // } catch (error) {
+    //     dispatch({
+    //         type: GET_BOOK,
+    //         payload: res.data
+    //     });
+    //     console.log(error.message)
+    // }
 };
 
 export const getAllBooks = () => async dispatch  => {

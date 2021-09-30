@@ -43,15 +43,14 @@ class ManageEnquiry extends Component{
         const id = {
             id: e.target.value,
         }
-        console.log(id.id);
         try{
-            const del = await this.props.deleteEnquiry(id);
+            await this.props.deleteEnquiry(id);
             const data = await this.props.getAllEnquiry();
             if(data){
                 this.setState({enquiries: data.slice()})
             }
             else{
-                console.log("not working")
+                this.setState({enquiries: []})
             }
         }
         catch(error){

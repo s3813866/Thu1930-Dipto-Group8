@@ -21,6 +21,7 @@ import BookListing from "./pages/BookListing";
 import UserRequests from "./components/UserManagement/UserRequests";
 import Enquiry from "./pages/Enquiry";
 import ManageEnquiry from "./components/UserManagement/ManageEnquiry";
+import BookPage from "./components/BookManagement/BookPage";
 
 class App extends Component {
   render() {
@@ -48,6 +49,7 @@ class App extends Component {
               <Route exact path="/UserRequest" component={UserRequests} />
               <Route exact path="/Enquiry" component={Enquiry} />
               <Route exact path="/ManageEnquiry" component={ManageEnquiry} />
+              <Route exact path="/BookPage" component={BookPage} />
 
             <Route exact path="/search" component={Search} />
             {/* <Route exact path="/results" component={Search} /> */}
