@@ -107,7 +107,7 @@ public class UserController {
 
     // To use this command, include the id number of the user to edit in the URL, and POST with a JSON body
     // of the attributes to change.  Any attributes that are not being changed should be left out of the JSON body.
-    @PutMapping("edit/{id}")
+    @PutMapping("/edit/{id}")
     public ResponseEntity<?> editUser(@PathVariable Long id, @Valid @RequestBody User newDetails,
                                       BindingResult result){
         final User updatedUser;
@@ -139,7 +139,7 @@ public class UserController {
         return ResponseEntity.ok(updatedUser);
     }
 
-    @PutMapping("ban/{id}")
+    @PutMapping("/ban/{id}")
     public ResponseEntity<?> banUser(@PathVariable Long id){
         final User updatedUser;
         User user = userService.getUserByID(id);
@@ -148,13 +148,38 @@ public class UserController {
         return ResponseEntity.ok(updatedUser);
     }
 
-    @PutMapping("unban/{id}")
+    @PutMapping("/unban/{id}")
     public ResponseEntity<?> unbanUser(@PathVariable Long id){
         final User updatedUser;
         User user = userService.getUserByID(id);
         user.setStatus("active");
         updatedUser = userService.updateUser_noPwdChange(user);
         return ResponseEntity.ok(updatedUser);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id){
+        if(userService.deleteUserByID(id)){
+            return ResponseEntity.ok(null);
+        }else{
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/type/{token}")
+    public ResponseEntity<?> getAccountTypeFromToken(@PathVariable String token){
+        String accountType = tokenProvider.getAccountTypeFromJWT(token);
+        if (accountType != null) {
+            return ResponseEntity.ok(accountType);
+        }else{
+            return new ResponseEntity<>(token, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/tokenid/{token}")
+    public ResponseEntity<?> getIDFromToken(@PathVariable String token){
+        Long id = tokenProvider.getUserIdFromJWT(token);
+        return ResponseEntity.ok(id);
     }
 
 }
