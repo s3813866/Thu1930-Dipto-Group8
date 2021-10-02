@@ -133,6 +133,10 @@ public class BookController {
             toEdit.setDescription(newDetails.getDescription());
             hasNewValues = true;
         }
+        if(newDetails.getPrice() <= 0){
+            toEdit.setDescription(newDetails.getDescription());
+            hasNewValues = true;
+        }
         try{
             if(hasNewValues){
                 updatedBook = bookservice.updateBook(toEdit);

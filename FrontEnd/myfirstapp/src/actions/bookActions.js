@@ -80,21 +80,6 @@ export const getBookByID = (id) => async dispatch => {
                     payload: data
                  })
     })
-    // try {
-    //     const LINK = `/api/books/`;
-    //     const res = await axios.get(`${LINK}${id}`);
-    //     console.log("here");
-    //     console.log(res.data);
-    //
-    //
-    //     return res.data;
-    // } catch (error) {
-    //     dispatch({
-    //         type: GET_BOOK,
-    //         payload: res.data
-    //     });
-    //     console.log(error.message)
-    // }
 };
 
 export const getAllBooks = () => async dispatch  => {

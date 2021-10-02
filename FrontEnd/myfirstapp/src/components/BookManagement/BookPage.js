@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, useState} from 'react'
 import {connect} from "react-redux";
 import {getBookByID} from "../../actions/bookActions";
 import {Container} from "react-bootstrap";
@@ -12,9 +12,10 @@ class BookPage extends Component {
 
         this.state = {
             book: JSON.parse(localStorage.getItem("BookClickedOn"))
+
         };
 
-        console.log(this.state.book)
+
         this.onSubmit = this.onSubmit.bind(this);
     }
 
@@ -29,6 +30,20 @@ class BookPage extends Component {
 
 
     async onSubmit() {
+         if(localStorage.getItem("cart")){
+             console.log("exist")
+             console.log(this.state.book)
+             const cart = JSON.parse(localStorage.getItem("cart"))
+             const data = [this.state.book]
+             const newCart = cart.concat(data)
+             localStorage.setItem("cart", JSON.stringify(newCart))
+             console.log(JSON.parse(localStorage.getItem("cart")))
+         }else{
+             const data = [this.state.book]
+             localStorage.setItem("cart", JSON.stringify(data))
+         }
+
+         console.log(JSON.parse(localStorage.getItem("cart")))
 
     }
 
@@ -54,8 +69,13 @@ class BookPage extends Component {
                             <p>Description: {this.state.book.description}</p>
                             <br/>
                         </Grid>
-                        <Grid item xs={8}>
+                        <Grid item xs={7}>
+
                         </Grid>
+                        <Grid item xs={8}>
+                            <button onClick={this.onSubmit}>add to cart</button>
+                        </Grid>
+
                     </Grid>
                 </Box>
             </Container>
