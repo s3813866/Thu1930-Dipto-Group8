@@ -58,6 +58,7 @@ class EditBookForm extends Component {
 
                                 <div className="form-group">
                                     <input type="text" className="form-control form-control-lg "
+                                        data-testid="id-entry"
                                         placeholder="ID"
                                         name="id"
                                         value={this.state.name}
@@ -116,7 +117,7 @@ class EditBookForm extends Component {
                                 </div>
 
 
-                                <input type="submit" className="btn btn-primary btn-block mt-4" data-testid="Submit"></input>/>
+                                <input type="submit" data-testid="editButton" name="submitEdit" className="btn btn-primary btn-block mt-4" />
                             </form>
                         </div>
                     </div>
