@@ -166,4 +166,20 @@ public class UserController {
         }
     }
 
+    @GetMapping("/type/{token}")
+    public ResponseEntity<?> getAccountTypeFromToken(@PathVariable String token){
+        String accountType = tokenProvider.getAccountTypeFromJWT(token);
+        if (accountType != null) {
+            return ResponseEntity.ok(accountType);
+        }else{
+            return new ResponseEntity<>(token, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/tokenid/{token}")
+    public ResponseEntity<?> getIDFromToken(@PathVariable String token){
+        Long id = tokenProvider.getUserIdFromJWT(token);
+        return ResponseEntity.ok(id);
+    }
+
 }

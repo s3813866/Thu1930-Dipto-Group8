@@ -65,5 +65,14 @@ public class JwtTokenProvider {
 
         return Long.parseLong(id);
     }
+
+    //Get account type from token
+    public String getAccountTypeFromJWT(String token){
+        Claims claims = Jwts.parser().setSigningKey(SecurityConstant.SECRET).parseClaimsJws(token).getBody();
+        String accountType = (String)claims.get("accountType");
+
+        return accountType;
+    }
+
 }
 
