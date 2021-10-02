@@ -12,7 +12,7 @@ class EditBookForm extends Component {
         super();
 
         this.state = {
-            //id: "",
+            id: "",
             title: "",
             author: "",
             category: "",
@@ -40,7 +40,7 @@ class EditBookForm extends Component {
         }
         console.log(editBook);
         console.log("Book Edited and Updated in the Database");
-        this.props.editBook(editBook, this.props.history);
+        this.props.editBook(editBook, this.props.history, this.state.id);
     }
 
 
@@ -48,13 +48,24 @@ class EditBookForm extends Component {
         const { errors } = this.state;
         return (
             <div className="Person">
-                <div className="container">
+                <div className="container" data-testid="EditBookForm">
                     <div className="row">
                         <div className="col-md-8 m-auto">
                             <h5 className="display-4 text-center">Edit Book Form</h5>
                             <hr />
-                            <form onSubmit={this.onSubmit} data-testid="EditBookForm">
+                            <form onSubmit={this.onSubmit} data-testid="on-submit">
                                 <br />
+
+                                <div className="form-group">
+                                    <input type="text" className="form-control form-control-lg "
+                                        placeholder="ID"
+                                        name="id"
+                                        value={this.state.name}
+                                        onChange={this.onChange}
+                                    />
+                                    <br />
+
+                                </div>
 
                                 <div className="form-group">
                                     <input type="text" className="form-control form-control-lg "
@@ -105,7 +116,7 @@ class EditBookForm extends Component {
                                 </div>
 
 
-                                <input type="submit" className="btn btn-primary btn-block mt-4" />
+                                <input type="submit" className="btn btn-primary btn-block mt-4" data-testid="Submit"></input>/>
                             </form>
                         </div>
                     </div>

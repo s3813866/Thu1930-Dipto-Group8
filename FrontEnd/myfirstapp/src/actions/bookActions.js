@@ -36,12 +36,13 @@ export const getAuthor = (author, history) => async dispatch => {
 
 
 /* Test: EDITBOOK ACTION */
-export const editBook = (book, history) => async dispatch => {
-    const LINK = `/api/books/edit/1`;
+export const editBook = (book, history, id) => async dispatch => {
+    const LINK = `/api/books/edit/`;
     try {
-        //const data = await axios.put(`${LINK}/${book.id}`);
-        const data = await axios.put(`${LINK}`, book);
-        console.log("PUT Method Running");
+        const data = await axios.put(`${LINK}/${id}`, book);
+        // Update to a new Book-Edited Page
+        history.push("/bookAdded");
+        console.log("PUT method run successfully");
         dispatch({
             type: "EDIT_BOOK",
             payload: {data}
