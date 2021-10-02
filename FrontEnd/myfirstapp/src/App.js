@@ -3,9 +3,9 @@ import "./App.css";
 import Dashboard from "./components/Dashboard";
 import Header from "./components/Layout/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AddPerson from "./components/Persons/AddPerson";
-import  {Provider}  from "react-redux";
+import { Provider } from "react-redux";
 import store from "./store";
 
 import Register from "./components/UserManagement/Register";
@@ -22,8 +22,33 @@ import UserRequests from "./components/UserManagement/UserRequests";
 
 import EditBookForm from "./pages/EditBookForm";
 
+import axios from "axios";
+
+async function getUserType(bearerToken) {
+  const LINK = `/api/users/type`
+  try {
+    const res = await axios.get(`${LINK}/${bearerToken}`);
+
+    const retUser = eval(JSON.stringify(res.data));
+    console.log("User Type: ");
+    console.log(retUser);
+
+    sessionStorage.setItem("userType", retUser);
+
+    return retUser;
+
+  } catch (error) {
+    console.log("getUser Error");
+  }
+};
+
 class App extends Component {
   render() {
+    const accountTypeToken = localStorage.getItem("token").replace(/^Bearer\s+/, "");
+    console.log(accountTypeToken);
+    getUserType(accountTypeToken);
+    const accountType = sessionStorage.getItem("userType")
+
     return (
       <Provider store={store}>
         <Router>
@@ -34,31 +59,36 @@ class App extends Component {
             }
 
             <Switch>
-            {/*<Route exact path="/" component={Landing} />*/}
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/addBook" component={AddBook} />
-            <Route exact path="/bookAdded" component={BookAdded} />
-            <Route exact path="/getBookByAuthor" component={GetBookByAuthor} />
+              {/*<Route exact path="/" component={Landing} />*/}
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/addBook" component={AddBook} />
+              <Route exact path="/bookAdded" component={BookAdded} />
+              <Route exact path="/getBookByAuthor" component={GetBookByAuthor} />
               {/*not needed for now*/}
-            {/*<Route exact path="/getBookById" component={GetBookById} />*/}
-            <Route exact path="/home" component={Homepage} />
+              {/*<Route exact path="/getBookById" component={GetBookById} />*/}
+              <Route exact path="/home" component={Homepage} />
               <Route exact path="/test" component={CustomizedSnackbars} />
               <Route exact path="/BookListing" component={BookListing} />
               <Route exact path="/UserRequest" component={UserRequests} />
 
-            {/* Edit Book Form*/}
-            <Route exact path="/EditBookForm" component={EditBookForm} />
+              {/* Edit Book Form*/}
+              <Route exact path="/EditBookForm" component={
+                (accountType === "ADMIN" || "SELLER") ?
+                  () => <EditBookForm /> : () => <Homepage />} />
 
+              <Route exact path="/search" component={Search} />
+              {/* <Route exact path="/results" component={Search} /> */}
 
-            <Route exact path="/search" component={Search} />
-            {/* <Route exact path="/results" component={Search} /> */}
+              {
+                //Private Routes
+              }
+              <Route path="/dashboard" component={
+                (accountType === "ADMIN") ? () => <Dashboard /> : () => <Homepage />} />
 
-            {
-              //Private Routes
-            }
-            <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/addPerson" component={AddPerson} />
+              <Route path="/addPerson" component={
+                (accountType === "ADMIN") ? () => <AddPerson /> : () => <Homepage />} />
+
               <Route exact path="" component={PageNotFound} />
             </Switch>
 
