@@ -84,7 +84,7 @@ public class UserController {
         return ResponseEntity.ok(new JWTLoginSucessReponse(true, jwt));
     }
 
-    @GetMapping
+    @GetMapping("/getAllUsers")
     public ResponseEntity<?> getAllUsers(){
         List<User> users = userService.getAllUsers();
         if(users.size() > 0){

@@ -13,11 +13,18 @@ export const createPerson = (person, history) => async dispatch => {
   }
 };
 export const getPersons = () => async dispatch => {
-  const res = await axios.get("/api/person/all");
-  dispatch({
-    type: GET_PERSONS,
-    payload: res.data
-  });
+  try{
+    const res = await axios.get("/api/users/getAllUsers");
+    dispatch({
+      type: GET_PERSONS,
+      payload: res.data
+    });
+    console.log(res.data)
+    return res.data;
+  }catch (error) {
+    console.log(error.message)
+  }
+
 };
 
 export const getPerson = (id, history) => async dispatch => {
@@ -36,7 +43,7 @@ export const banUser= (id) => async dispatch => {
 
   try{
     const LINK = `/api/users/ban/`
-    const res = await axios.put(`${LINK}${id.id}`);
+    const res = await axios.put(`${LINK}${id}`);
     dispatch({
       type: BAN_PERSON,
       payload: res.data
@@ -53,7 +60,7 @@ export const unbanUser= (id) => async dispatch => {
 
   try{
     const LINK = `/api/users/unban/`
-    const res = await axios.put(`${LINK}${id.id}`);
+    const res = await axios.put(`${LINK}${id}`);
     dispatch({
       type: BAN_PERSON,
       payload: res.data

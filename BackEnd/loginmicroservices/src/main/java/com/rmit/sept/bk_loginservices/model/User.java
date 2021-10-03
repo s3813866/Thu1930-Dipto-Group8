@@ -31,8 +31,6 @@ public class User implements UserDetails {
     @NotBlank(message = "Password field is required")
     private String address;
 
-
-
     private AccountType accountType;
     private String status;
     private Date create_At;
@@ -107,7 +105,7 @@ public class User implements UserDetails {
     public void setUpdate_At(Date update_At) {
         this.update_At = update_At;
     }
-    
+
     public String getAddress() {
         return address;
     }

@@ -14,6 +14,7 @@ class Register extends Component {
     fullName: "",
     password: "",
     confirmPassword: "",
+    address: "",
     errors: {}
   };
   this.onChange = this.onChange.bind(this);
@@ -42,7 +43,8 @@ onSubmit(e) {
     username: this.state.username,
     fullName: this.state.fullName,
     password: this.state.password,
-    confirmPassword: this.state.confirmPassword
+    confirmPassword: this.state.confirmPassword,
+    address: this.state.address
   };
   console.log("LINE 47 REGISTER.JS");
   this.props.createNewUser(newUser, this.props.history);
