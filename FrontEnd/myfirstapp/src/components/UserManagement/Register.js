@@ -30,7 +30,6 @@ componentWillReceiveProps(nextProps){
 }
 
 
-
 onChange(e) {
   console.log("onchange");
   console.log("LINE 35 onChange");
@@ -107,6 +106,15 @@ render() {
                 />
               </div>
               <br/>
+              <div className="form-group">
+                <input
+                    type="address"
+                    className="form-control form-control-lg"
+                    placeholder="Address"
+                    name="address"
+                    onChange = {this.onChange}
+                />
+              </div>
               <input type="submit" className="btn btn-info btn-block mt-4" />
             </form>
           </div>

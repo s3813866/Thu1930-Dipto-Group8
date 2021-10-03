@@ -28,13 +28,13 @@ class UserControllerTest {
 
     @BeforeAll
     public void setUp(){
-        User user1 = new User("test1@test.com", "John Citizen", "testPASSWORD", "testPASSWORD");
+        User user1 = new User("test1@test.com", "John Citizen", "testPASSWORD", "testPASSWORD", "add");
         result = new BeanPropertyBindingResult(user1, "user1");
         userController.registerUser(user1, result);
-        User user2 = new User("test2@test.com", "Jane Doe", "passwordTEST", "passwordTEST");
+        User user2 = new User("test2@test.com", "Jane Doe", "passwordTEST", "passwordTEST", "add");
         result = new BeanPropertyBindingResult(user2, "user2");
         userController.registerUser(user2, result);
-        User user3 = new User("test3@test.com", "Jim Do", "qwertyuiop", "qwertyuiop");
+        User user3 = new User("test3@test.com", "Jim Do", "qwertyuiop", "qwertyuiop", "add");
         result = new BeanPropertyBindingResult(user3, "user3");
         userController.registerUser(user3, result);
     }
@@ -44,7 +44,7 @@ class UserControllerTest {
         //Set up details to be changed, unchanged fields are set to null
         ResponseEntity<?> response  = userController.getUserByID(1L);
         User toUpdate = (User) response.getBody();
-        User updateVal = new User("testx@test.com", null, null, null);
+        User updateVal = new User("testx@test.com", null, null, null, null);
 
         //Process edit user request, new username should show in retrieved user and password should be left unchanged
         response = userController.editUser(1L, updateVal,result);
@@ -54,7 +54,7 @@ class UserControllerTest {
         assertEquals(toUpdate.getFullName(), testResult.getFullName());
         assertEquals(toUpdate.getPassword(), testResult.getPassword());
 
-        updateVal = new User("test1@test.com", null, null, null);
+        updateVal = new User("test1@test.com", null, null, null, null);
         response = userController.editUser(1L, updateVal,result);
 
     }
@@ -64,7 +64,7 @@ class UserControllerTest {
         //Set up details to be changed, unchanged fields are set to null
         ResponseEntity<?> response  = userController.getUserByID(2L);
         User toUpdate = (User) response.getBody();
-        User updateVal = new User(null, "Jane Citizen", null, null);
+        User updateVal = new User(null, "Jane Citizen", null, null, null);
 
         //Process edit user request, new fullname should show in retrieved user and password should be left unchanged
         response = userController.editUser(2L, updateVal,result);
@@ -74,7 +74,7 @@ class UserControllerTest {
         assertEquals(toUpdate.getUsername(), testResult.getUsername());
         assertEquals(toUpdate.getPassword(), testResult.getPassword());
 
-        updateVal = new User(null, "Jane Doe", null, null);
+        updateVal = new User(null, "Jane Doe", null, null, null);
         response = userController.editUser(2L, updateVal,result);
     }
 
@@ -82,7 +82,7 @@ class UserControllerTest {
     void whenOnlyPasswordIsGiven_thenUpdateSucceeds() {
         ResponseEntity<?> response  = userController.getUserByID(1L);
         User toUpdate = (User) response.getBody();
-        User updateVal = new User(null, null, "superPASSWORD", "superPASSWORD");
+        User updateVal = new User(null, null, "superPASSWORD", "superPASSWORD", "add");
 
         //Process edit user request, new password should show in retrieved user,
         // and should not match with previous password hash
@@ -93,7 +93,7 @@ class UserControllerTest {
         assertEquals(toUpdate.getFullName(), testResult.getFullName());
         assertEquals(toUpdate.getUsername(), testResult.getUsername());
 
-        updateVal = new User(null, null, "testPASSWORD", "testPASSWORD");
+        updateVal = new User(null, null, "testPASSWORD", "testPASSWORD", "add");
         response = userController.editUser(1L, updateVal,result);
 
     }
@@ -102,7 +102,7 @@ class UserControllerTest {
     void whenPasswordsMismatch_thenUpdateFails() {
         ResponseEntity<?> response  = userController.getUserByID(2L);
         User toUpdate = (User) response.getBody();
-        User updateVal = new User(null, null, "hyperPASSWORD", "HYPERpassword");
+        User updateVal = new User(null, null, "hyperPASSWORD", "HYPERpassword", "add");
 
         //Process edit user request, should fail update
         response = userController.editUser(2L, updateVal,result);
@@ -113,7 +113,7 @@ class UserControllerTest {
     void whenUpdateHasNoConfirm_thenUpdateFails() {
         ResponseEntity<?> response  = userController.getUserByID(2L);
         User toUpdate = (User) response.getBody();
-        User updateVal = new User(null, null, "hyperPASSWORD", null);
+        User updateVal = new User(null, null, "hyperPASSWORD", null, "add");
 
         //Process edit user request, should fail update
         response = userController.editUser(2L, updateVal,result);
@@ -124,7 +124,7 @@ class UserControllerTest {
     void whenUsernameIsNotEmail_thenUpdateFails() {
         ResponseEntity<?> response  = userController.getUserByID(1L);
         User toUpdate = (User) response.getBody();
-        User updateVal = new User("john", null, null, null);
+        User updateVal = new User("john", null, null, null, "add");
 
         //Process edit user request, should fail update
         assertThrows(UsernameAlreadyExistsException.class, ()-> {userController.editUser(1L, updateVal,result);});
@@ -134,7 +134,7 @@ class UserControllerTest {
     void whenUsernameBelongsToAnotherUser_thenUpdateFails() {
         ResponseEntity<?> response  = userController.getUserByID(1L);
         User toUpdate = (User) response.getBody();
-        User updateVal = new User("test2@test.com", null, null, null);
+        User updateVal = new User("test2@test.com", null, null, null, "add");
 
         //Process edit user request, should fail update
         assertThrows(UsernameAlreadyExistsException.class, ()-> {userController.editUser(1L, updateVal,result);});
@@ -149,7 +149,7 @@ class UserControllerTest {
 
     @Test
     void whenNewUserTypeisSpecified_thenTypeIsAdmin(){
-        User testUser = new User("test4@test.com", "William Doe", "qwertyuiop", "qwertyuiop");
+        User testUser = new User("test4@test.com", "William Doe", "qwertyuiop", "qwertyuiop", "add");
         testUser.setAccountType(AccountType.ADMIN);
         result = new BeanPropertyBindingResult(testUser, "testUser");
         userController.registerUser(testUser, result);

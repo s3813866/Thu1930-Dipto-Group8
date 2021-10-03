@@ -12,7 +12,6 @@ class BookPage extends Component {
 
         this.state = {
             book: JSON.parse(localStorage.getItem("BookClickedOn"))
-
         };
 
 
@@ -62,12 +61,15 @@ class BookPage extends Component {
                         <Grid item xs={8}>
                             <h2>Title: {this.state.book.title}</h2>
                             <br/>
-                            <p>Author: {this.state.book.author}</p>
+                            <h3>Author: {this.state.book.author}</h3>
                             <br/>
-                            <p>Category: {this.state.book.category}</p>
+                            <h3>Category: {this.state.book.category}</h3>
                             <br/>
-                            <p>Description: {this.state.book.description}</p>
+                            <h3>Description: {this.state.book.description}</h3>
                             <br/>
+                            <h3>Description: {this.state.book.description}</h3>
+                            <br/>
+                            <h3>Price: {this.state.book.price}</h3>
                         </Grid>
                         <Grid item xs={7}>
 

@@ -38,12 +38,13 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, String author, String ISBN, String category, String description) {
+    public Book(String title, String author, String ISBN, String category, String description, double price) {
         this.title = title;
         this.author = author;
         this.ISBN = ISBN;
         this.category = category;
         this.description = description;
+        this.price = price;
     }
 
     public long getId() {

@@ -8,7 +8,8 @@ class CartSummary extends Component {
         super();
 
         this.state = {
-            book: JSON.parse(localStorage.getItem("cart"))
+            book: JSON.parse(localStorage.getItem("cart")),//book is an array of books that has a price field
+            total: JSON.parse(localStorage.getItem("cart")).reduce((a,v) => a = a + v.price, 0)
         };
 
         this.onRemove = this.onRemove.bind(this);
@@ -29,15 +30,17 @@ class CartSummary extends Component {
         this.state.book.splice(index,1);
         console.log(index)
         console.log(this.state.book)
+        await localStorage.setItem("cart", JSON.stringify(this.state.book))
         this.setState({})
     }
 
     async onDetails(e){
-
+        const find = this.state.book.find(({id}) => id === parseInt(e.target.name))
+        localStorage.setItem("BookClickedOn", JSON.stringify(find));
     }
 
     async onPay(){
-
+        //paypal
     }
 
     render() {
@@ -53,7 +56,7 @@ class CartSummary extends Component {
                             </div>
                             <div className="col-lg-6 col-md-4 col-8">
                                 <h3>{book.title}</h3>
-                                <p>Reject or accept user requests and answer Enquiries...</p>
+                                <p>Price: ${book.price}</p>
                             </div>
                             <div className="col-md-4 d-none d-lg-block">
                                 <ul className="list-group">
@@ -64,7 +67,7 @@ class CartSummary extends Component {
                                     <a>
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <Button variant="contained" color="error" onClick={this.onRemove} name={book.id}>Remove</Button>{' '}
-                                        <Button variant="contained" onClick={this.onDetails}> Details </Button>
+                                        <Button variant="contained" onClick={this.onDetails} name={book.id} href="/BookPage"> Details </Button>
                                     </a>
                                 </ul>
                             </div>
@@ -72,8 +75,8 @@ class CartSummary extends Component {
                     </div>
                 </div>)}
                 <br/>
+                <h1>Total: ${this.state.total}</h1>
                 <Button variant="contained" style={{ display: "flex", marginLeft: "auto" }} onClick={this.onPay}>Pay</Button>
-
             </Container>
         )
     }

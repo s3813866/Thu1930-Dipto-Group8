@@ -28,6 +28,11 @@ public class User implements UserDetails {
     private String password;
     @Transient
     private String confirmPassword;
+    @NotBlank(message = "Password field is required")
+    private String address;
+
+
+
     private AccountType accountType;
     private String status;
     private Date create_At;
@@ -55,11 +60,12 @@ public class User implements UserDetails {
         this.username = username;
     }
 
-    public User(String username, String fullName, String password, String confirmPassword) {
+    public User(String username, String fullName, String password, String confirmPassword, String address) {
         this.username = username;
         this.fullName = fullName;
         this.password = password;
         this.confirmPassword = confirmPassword;
+        this.address = address;
     }
 
     public String getFullName() {
@@ -100,6 +106,14 @@ public class User implements UserDetails {
 
     public void setUpdate_At(Date update_At) {
         this.update_At = update_At;
+    }
+    
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @PrePersist
