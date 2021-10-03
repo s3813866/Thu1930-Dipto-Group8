@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {connect} from "react-redux";
 import {deleteEnquiry, getAllEnquiry} from "../../actions/EnquiryActions";
 import {Accordion, Button, Container} from "react-bootstrap";
+import Snackbar from "@mui/material/Snackbar";
+import {Alert} from "@mui/material";
 
 class ManageEnquiry extends Component{
     constructor() {
@@ -9,12 +11,13 @@ class ManageEnquiry extends Component{
 
         this.state = {
             id: "",
-            enquiries: []
+            enquiries: [],
+            alertState: false
         };
 
         this.onSubmit = this.onSubmit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
-
+        this.handleClose = this.handleClose.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -26,12 +29,16 @@ class ManageEnquiry extends Component{
         }
     }
 
+    async handleClose(){
+        await this.setState({alertState: false})
+    }
+
     async onSubmit(e) {
         e.preventDefault();
         const data = await this.props.getAllEnquiry();
         if(data){
-            console.log("here")
-            this.setState({enquiries: data.slice()})
+            this.setState({enquiries: data.slice()});
+
         }
         else{
             console.log("not working")
@@ -48,6 +55,7 @@ class ManageEnquiry extends Component{
             const data = await this.props.getAllEnquiry();
             if(data){
                 this.setState({enquiries: data.slice()})
+                this.setState({alertState: true});
             }
             else{
                 this.setState({enquiries: []})
@@ -92,6 +100,11 @@ class ManageEnquiry extends Component{
                             </Accordion.Item>
                             ))}
                 </Accordion>
+                <Snackbar open={this.state.alertState} autoHideDuration={6000} onClose={this.handleClose}>
+                    <Alert onClose={this.handleClose} severity="warning" sx={{ width: '100%' }}>
+                        Enquiry deleted!
+                    </Alert>
+                </Snackbar>
             </Container>
         )
     }
