@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -55,6 +57,12 @@ public class UserService {
             return getVal;
         }
         return null;
+    }
+
+    public List<User> getAllUsers(){
+        List<User> users = new ArrayList<>();
+        userRepository.findAll().forEach(user -> users.add(user));
+        return users;
     }
 
     public User getUserByUsername(String username){

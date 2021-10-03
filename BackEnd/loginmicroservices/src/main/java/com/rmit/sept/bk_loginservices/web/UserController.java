@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.util.List;
 import java.util.Map;
 
 import static com.rmit.sept.bk_loginservices.security.SecurityConstant.TOKEN_PREFIX;
@@ -81,6 +82,16 @@ public class UserController {
             return new ResponseEntity<>(new JWTLoginSucessReponse(false, null),HttpStatus.FORBIDDEN);
         }
         return ResponseEntity.ok(new JWTLoginSucessReponse(true, jwt));
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getAllUsers(){
+        List<User> users = userService.getAllUsers();
+        if(users.size() > 0){
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(users, HttpStatus.NO_CONTENT);
+        }
     }
 
     @GetMapping("/{id}")
