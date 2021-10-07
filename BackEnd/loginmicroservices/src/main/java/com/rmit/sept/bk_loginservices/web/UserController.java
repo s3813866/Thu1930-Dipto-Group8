@@ -1,6 +1,7 @@
 package com.rmit.sept.bk_loginservices.web;
 
 
+import com.rmit.sept.bk_loginservices.AccountType;
 import com.rmit.sept.bk_loginservices.model.User;
 import com.rmit.sept.bk_loginservices.payload.JWTLoginSucessReponse;
 import com.rmit.sept.bk_loginservices.payload.LoginRequest;
@@ -163,6 +164,18 @@ public class UserController {
             return ResponseEntity.ok(null);
         }else{
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/tokenuser/{token}")
+    public ResponseEntity<?> getAccountFromToken(@PathVariable String token){
+        User retVal = new User();
+        retVal.setUsername(tokenProvider.getUsernameFromJWT(token));
+        retVal.setAccountType(AccountType.valueOf(tokenProvider.getAccountTypeFromJWT(token)));
+        if (retVal.getAccountType() != null && retVal.getUsername() != null) {
+            return ResponseEntity.ok(retVal);
+        }else{
+            return new ResponseEntity<>(token, HttpStatus.BAD_REQUEST);
         }
     }
 
