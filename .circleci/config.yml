@@ -115,14 +115,14 @@ workflows:
   version: 2
   build:
     jobs:
-      # - "build-bookbackend-microservice":
-      #     filters:
-      #       branches:
-      #         only: develop
-      # - "build-loginbackend-microservice":
-      #     filters:
-      #       branches:
-      #         only: develop
+      - "build-bookbackend-microservice":
+          filters:
+            branches:
+              only: develop
+      - "build-loginbackend-microservice":
+          filters:
+            branches:
+              only: develop
       - "build-frontend":
           filters:
             branches:
