@@ -31,7 +31,7 @@ class CartSummary extends Component {
         console.log(index)
         console.log(this.state.book)
         await localStorage.setItem("cart", JSON.stringify(this.state.book))
-        this.setState({})
+        this.setState({total: JSON.parse(localStorage.getItem("cart")).reduce((a,v) => a = a + v.price, 0)})
     }
 
     async onDetails(e){

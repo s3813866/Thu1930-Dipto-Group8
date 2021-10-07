@@ -44,7 +44,6 @@ class ManageEnquiry extends Component{
             console.log("not working")
         }
 
-
     }
     async handleDelete(e){
         const id = {
