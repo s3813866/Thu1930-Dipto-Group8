@@ -1,6 +1,7 @@
 package com.rmit.sept.bookmicroservices.web;
 
 import com.rmit.sept.bookmicroservices.model.Book;
+import com.rmit.sept.bookmicroservices.services.BookCSVService;
 import com.rmit.sept.bookmicroservices.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +22,8 @@ public class BookController {
 
 
     private BookService bookservice;
+
+    private BookCSVService bookCSVService;
 
     @Autowired
     public BookController(BookService bookservice) {
@@ -152,6 +157,16 @@ public class BookController {
         }else{
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping(path = "/export/books.csv")
+    public void getAllBooksInCsv(HttpServletResponse servletResponse) throws IOException {
+//        servletResponse.setContentType("text/csv");
+//        servletResponse.addHeader("Content-Disposition","attachment; file=books.csv");
+//        bookCSVService.writeBooksToCsv(servletResponse.getWriter());
+
+        List<Book> books = bookservice.getAllBooks();
+        BookCSVService.downloadCsv(servletResponse.getWriter(), books);
     }
 
 }
