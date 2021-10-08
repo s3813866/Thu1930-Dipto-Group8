@@ -64,8 +64,6 @@ class ManageEnquiry extends Component{
             console.log(error.message);
         }
 
-
-
     }
 
     render(){

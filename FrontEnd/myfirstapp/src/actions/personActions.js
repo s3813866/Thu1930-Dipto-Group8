@@ -12,6 +12,7 @@ export const createPerson = (person, history) => async dispatch => {
     });
   }
 };
+
 export const getPersons = () => async dispatch => {
   try{
     const res = await axios.get("/api/users/getAllUsers");
@@ -65,7 +66,6 @@ export const unbanUser= (id) => async dispatch => {
       type: BAN_PERSON,
       payload: res.data
     });
-
     return res.data;
 
   }catch(error){

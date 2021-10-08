@@ -28,10 +28,8 @@ class CartSummary extends Component {
     async onRemove(e) {
         const index = this.state.book.findIndex(({id}) => id === parseInt(e.target.name))
         this.state.book.splice(index,1);
-        console.log(index)
-        console.log(this.state.book)
-        await localStorage.setItem("cart", JSON.stringify(this.state.book))
-        this.setState({total: JSON.parse(localStorage.getItem("cart")).reduce((a,v) => a = a + v.price, 0)})
+        await localStorage.setItem("cart", JSON.stringify(this.state.book));
+        this.setState({total: JSON.parse(localStorage.getItem("cart")).reduce((a,v) => a = a + v.price, 0)});
     }
 
     async onDetails(e){
