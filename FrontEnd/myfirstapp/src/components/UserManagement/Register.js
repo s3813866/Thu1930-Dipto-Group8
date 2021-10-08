@@ -14,6 +14,7 @@ class Register extends Component {
     fullName: "",
     password: "",
     confirmPassword: "",
+    address: "",
     errors: {}
   };
   this.onChange = this.onChange.bind(this);
@@ -30,7 +31,6 @@ componentWillReceiveProps(nextProps){
 }
 
 
-
 onChange(e) {
   console.log("onchange");
   console.log("LINE 35 onChange");
@@ -43,7 +43,8 @@ onSubmit(e) {
     username: this.state.username,
     fullName: this.state.fullName,
     password: this.state.password,
-    confirmPassword: this.state.confirmPassword
+    confirmPassword: this.state.confirmPassword,
+    address: this.state.address
   };
   console.log("LINE 47 REGISTER.JS");
   this.props.createNewUser(newUser, this.props.history);
@@ -107,6 +108,15 @@ render() {
                 />
               </div>
               <br/>
+              <div className="form-group">
+                <input
+                    type="address"
+                    className="form-control form-control-lg"
+                    placeholder="Address"
+                    name="address"
+                    onChange = {this.onChange}
+                />
+              </div>
               <input type="submit" className="btn btn-info btn-block mt-4" />
             </form>
           </div>

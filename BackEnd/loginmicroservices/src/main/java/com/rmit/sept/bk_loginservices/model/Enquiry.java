@@ -17,6 +17,7 @@ public class Enquiry {
     private String email;
     @NotBlank(message = "Please enter a subject")
     private String subject;
+    @Column(length = 500)
     @NotBlank(message = "Please enter a message")
     private String message;
 

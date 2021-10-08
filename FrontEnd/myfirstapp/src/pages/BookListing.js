@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from "prop-types";
-import {getBook} from "../actions/bookActions";
+import {getAllBooks} from "../actions/bookActions";
 import {connect} from "react-redux";
 import {Container} from "@material-ui/core";
 import {Table} from "react-bootstrap";
@@ -23,9 +23,8 @@ class BookListing extends Component {
     }
 
     async onSubmit(e){
-        this.setState({[e.target.name]: e.target.value});
         e.preventDefault();
-        const data = await this.props.getBook();
+        const data = await this.props.getAllBooks();
 
         if(data){
             console.log(data);
@@ -80,4 +79,4 @@ BookListing.propTypes = {
     createProject: PropTypes.func.isRequired
 };
 
-export default connect(null, {getBook})(BookListing);
+export default connect(null, {getAllBooks})(BookListing);

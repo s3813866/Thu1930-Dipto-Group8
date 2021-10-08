@@ -24,7 +24,7 @@ class BookControllerTest {
 
     @BeforeAll
     public void setUp() {
-        Book test1 = new Book("test book", "test author", "0123456789123", "test category", "test description");
+        Book test1 = new Book("test book", "test author", "0123456789123", "test category", "test description", 30.1);
         result = new BeanPropertyBindingResult(test1, "test1");
         testBook = (Book) bookController.addBook(test1, result).getBody();
     }
@@ -37,8 +37,8 @@ class BookControllerTest {
     @Test
     public void whenOnlyTitleIsGiven_thenUpdateSucceeds(){
         //Set up details to change, unchanged fields are set to null
-        Book toUpdate = (Book) bookController.getBookByID(testBook.getId()).getBody();
-        Book updateVal = new Book("new title", null, null, null, null);
+        Book toUpdate = (Book) bookController.getBookByID(1L).getBody();
+        Book updateVal = new Book("new title", null, null, null, null, 0);
 
         //Process edit book request, new field value should show in return Book
         Book testResult = (Book) bookController.editBook(testBook.getId(), updateVal, result).getBody();
@@ -53,8 +53,8 @@ class BookControllerTest {
     @Test
     public void whenOnlyAuthorIsGiven_thenUpdateSucceeds(){
         //Set up details to change, unchanged fields are set to null
-        Book toUpdate = (Book) bookController.getBookByID(testBook.getId()).getBody();
-        Book updateVal = new Book(null, "new author", null, null, null);
+        Book toUpdate = (Book) bookController.getBookByID(1L).getBody();
+        Book updateVal = new Book(null, "new author", null, null, null, 0);
 
         //Process edit book request, new field value should show in return Book
         Book testResult = (Book) bookController.editBook(testBook.getId(), updateVal, result).getBody();
@@ -69,8 +69,8 @@ class BookControllerTest {
     @Test
     public void whenOnlyCategoryIsGiven_thenUpdateSucceeds(){
         //Set up details to change, unchanged fields are set to null
-        Book toUpdate = (Book) bookController.getBookByID(testBook.getId()).getBody();
-        Book updateVal = new Book(null, null, null, "new category", null);
+        Book toUpdate = (Book) bookController.getBookByID(1L).getBody();
+        Book updateVal = new Book(null, null, null, "new category", null, -2);
 
         //Process edit book request, new field value should show in return Book
         Book testResult = (Book) bookController.editBook(testBook.getId(), updateVal, result).getBody();
@@ -85,8 +85,8 @@ class BookControllerTest {
     @Test
     public void whenOnlyISBNIsGiven_thenUpdateSucceeds(){
         //Set up details to change, unchanged fields are set to null
-        Book toUpdate = (Book) bookController.getBookByID(testBook.getId()).getBody();
-        Book updateVal = new Book(null, null, "9876543210987", null, null);
+        Book toUpdate = (Book) bookController.getBookByID(1L).getBody();
+        Book updateVal = new Book(null, null, "9876543210987", null, null, -1);
 
         //Process edit book request, new field value should show in return Book
         Book testResult = (Book) bookController.editBook(testBook.getId(), updateVal, result).getBody();
@@ -101,8 +101,8 @@ class BookControllerTest {
     @Test
     public void whenOnlyDescriptionIsGiven_thenUpdateSucceeds(){
         //Set up details to change, unchanged fields are set to null
-        Book toUpdate = (Book) bookController.getBookByID(testBook.getId()).getBody();
-        Book updateVal = new Book(null, null, null, null, "new description");
+        Book toUpdate = (Book) bookController.getBookByID(1L).getBody();
+        Book updateVal = new Book(null, null, null, null, "new description", -2.1);
 
         //Process edit book request, new field value should show in return Book
         Book testResult = (Book) bookController.editBook(testBook.getId(), updateVal, result).getBody();
@@ -117,8 +117,8 @@ class BookControllerTest {
     @Test
     public void whenNoNewValuesAreGiven_thenUpdateFails(){
         //Set up details to change, unchanged fields are set to null
-        Book toUpdate = (Book) bookController.getBookByID(testBook.getId()).getBody();
-        Book updateVal = new Book(null, null, null, null, null);
+        Book toUpdate = (Book) bookController.getBookByID(1L).getBody();
+        Book updateVal = new Book(null, null, null, null, null, -2);
 
         //Process edit book request, new field value should show in return Book
         assertEquals(HttpStatus.BAD_REQUEST, bookController.editBook(testBook.getId(), updateVal, result).getStatusCode());
@@ -127,8 +127,8 @@ class BookControllerTest {
     @Test
     public void whenISBNIsNot13Long_thenUpdateFails(){
         //Set up details to change, unchanged fields are set to null
-        Book toUpdate = (Book) bookController.getBookByID(testBook.getId()).getBody();
-        Book updateVal = new Book(null, null, "56789", null, null);
+        Book toUpdate = (Book) bookController.getBookByID(1L).getBody();
+        Book updateVal = new Book(null, null, "56789", null, null, -2.3);
 
         //Process edit book request, new field value should show in return Book
         assertEquals(HttpStatus.BAD_REQUEST, bookController.editBook(testBook.getId(), updateVal, result).getStatusCode());

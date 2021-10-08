@@ -19,6 +19,11 @@ import Homepage from "./pages/Homepage";
 import CustomizedSnackbars from "./pages/Test";
 import BookListing from "./pages/BookListing";
 import UserRequests from "./components/UserManagement/UserRequests";
+import Enquiry from "./pages/Enquiry";
+import ManageEnquiry from "./components/UserManagement/ManageEnquiry";
+import BookPage from "./components/BookManagement/BookPage";
+import CartSummary from "./components/Cart/CartSummary";
+import UserStatus from "./components/UserManagement/UserStatus";
 
 import EditBookForm from "./pages/EditBookForm";
 
@@ -40,18 +45,24 @@ class App extends Component {
             <Route exact path="/addBook" component={AddBook} />
             <Route exact path="/bookAdded" component={BookAdded} />
             <Route exact path="/getBookByAuthor" component={GetBookByAuthor} />
-              {/*not needed for now*/}
-            {/*<Route exact path="/getBookById" component={GetBookById} />*/}
+
             <Route exact path="/home" component={Homepage} />
               <Route exact path="/test" component={CustomizedSnackbars} />
+              <Route exact path="/UserStatus" component={UserStatus} />
               <Route exact path="/BookListing" component={BookListing} />
               <Route exact path="/UserRequest" component={UserRequests} />
+              <Route exact path="/Enquiry" component={Enquiry} />
+              <Route exact path="/ManageEnquiry" component={ManageEnquiry} />
+              <Route exact path="/BookPage" component={BookPage} />
+              <Route exact path="/CartSummary" component={CartSummary} />
 
             {/* Edit Book Form*/}
             <Route exact path="/EditBookForm" component={EditBookForm} />
 
 
             <Route exact path="/search" component={Search} />
+
+
             {/* <Route exact path="/results" component={Search} /> */}
 
             {

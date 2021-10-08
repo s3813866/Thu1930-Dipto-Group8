@@ -63,3 +63,20 @@ img {
 .form-control::placeholder {
   color: #bbb !important;
 }
+
+fieldset {
+  background-color: #eeeeee;
+}
+
+legend {
+  background-color: gray;
+  color: white;
+  padding: 5px 10px;
+}
+
+.mr-0 {
+  margin-right: 0;
+}
+.ml-auto {
+  margin-left:auto;
+}
