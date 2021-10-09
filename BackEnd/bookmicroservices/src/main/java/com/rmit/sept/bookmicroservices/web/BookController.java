@@ -159,12 +159,11 @@ public class BookController {
         }
     }
 
+    @CrossOrigin
     @GetMapping(path = "/export/books.csv")
     public void getAllBooksInCsv(HttpServletResponse servletResponse) throws IOException {
-//        servletResponse.setContentType("text/csv");
-//        servletResponse.addHeader("Content-Disposition","attachment; file=books.csv");
-//        bookCSVService.writeBooksToCsv(servletResponse.getWriter());
-
+        servletResponse.setContentType("application/csv");
+        servletResponse.setHeader("Content-Disposition", "attachment; filename=\"books.csv\"");
         List<Book> books = bookservice.getAllBooks();
         BookCSVService.downloadCsv(servletResponse.getWriter(), books);
     }
