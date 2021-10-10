@@ -1,24 +1,21 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {banUser, unbanUser, getPersons} from "../../actions/personActions";
+import {getPersons} from "../../actions/personActions";
 import {Accordion, Button, Container} from "react-bootstrap";
 import {Alert} from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
 
-class UserStatus extends Component {
+class UserList extends Component {
     constructor() {
         super();
 
         this.state = {
-            users: [],
-            author: "",
             alertState: false,
             alertMsg: "",
             severity: "success"
         };
 
-        this.handleBan = this.handleBan.bind(this);
-        this.handleUnban = this.handleUnban.bind(this);
+        this.handleEdit = this.handleEdit.bind(this);
         this.handleClose = this.handleClose.bind(this);
     }
 
@@ -40,43 +37,22 @@ class UserStatus extends Component {
         await this.setState({alertState: false})
     }
 
-    async handleBan(e) {
-        const name = e.target.name
-        await this.props.banUser(parseInt(e.target.value))
 
-
+    async handleEdit(e) {
 
         const users = await this.props.getPersons();
 
-        const header = "User "
-        const newMessage = header.concat(name," has been banned");
-
-        this.setState({users: users})
-        this.setState({severity: "warning"})
-        this.setState({alertMsg: newMessage})
-        this.setState({alertState: true})
-    }
-
-    async handleUnban(e) {
-        const name = e.target.name
-        await this.props.unbanUser(parseInt(e.target.value))
-
-        const users = await this.props.getPersons();
-
-        const header = "User "
-        const newMessage = header.concat(name," has been unbanned");
-
-        this.setState({users: users});
+        localStorage.setItem("Edit", )
         this.setState({severity: "success"})
-        this.setState({alertMsg: newMessage})
+        this.setState({alertMsg: "User saved"})
         this.setState({alertState: true})
     }
 
     render() {
         return (
             <Container>
-                <h1>User status</h1>
-                <p>all the users are listed here, click to ban or unban them</p>
+                <h1>User List</h1>
+                <p>All the users listed</p>
                 <br/>
                 <br/>
                 <Accordion>
@@ -92,10 +68,7 @@ class UserStatus extends Component {
                                 <br/>
                                 <b>Email: </b>{user.username}
                                 <Button style={{float: 'right'}} variant="danger" disabled={user.status !== "active"} value={user.id}
-                                        onClick={this.handleBan} name={user.fullName}>Ban</Button>{' '}
-
-                                <Button style={{float: 'right'}} variant="success" disabled={user.status !== "banned"} value={user.id}
-                                        onClick={this.handleUnban} name={user.fullName}>Unban</Button>{' '}
+                                        onClick={this.handleEdit} name={user.fullName} href="/EditUsers">Ban</Button>{' '}
                                 &nbsp;
                             </Accordion.Body>
                         </Accordion.Item>))}
@@ -110,4 +83,4 @@ class UserStatus extends Component {
     }
 }
 
-export default connect(null, {banUser, unbanUser, getPersons})(UserStatus);
+export default connect(null, {getPersons})(UserList);
