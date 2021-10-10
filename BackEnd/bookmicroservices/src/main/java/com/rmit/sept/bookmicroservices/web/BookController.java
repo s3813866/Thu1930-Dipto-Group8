@@ -133,6 +133,10 @@ public class BookController {
             toEdit.setDescription(newDetails.getDescription());
             hasNewValues = true;
         }
+        if(newDetails.getPrice() > 0){
+            toEdit.setPrice(newDetails.getPrice());
+            hasNewValues = true;
+        }
         try{
             if(hasNewValues){
                 updatedBook = bookservice.updateBook(toEdit);
@@ -141,6 +145,7 @@ public class BookController {
                 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
             }
         }catch (Exception e){
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }

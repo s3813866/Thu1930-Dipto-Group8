@@ -15,6 +15,7 @@ class AddBook extends Component {
             category: "",
             isbn: "",
             description: "",
+            price: ""
         };
 
         this.onChange = this.onChange.bind(this);
@@ -46,6 +47,7 @@ class AddBook extends Component {
             category: this.state.category,
             isbn: this.state.isbn,
             description: this.state.description,
+            price: parseFloat(this.state.price)
         }
 
         console.log(newBook);
@@ -106,6 +108,16 @@ class AddBook extends Component {
                                            placeholder="Book Description"
                                            name = "description"
                                            value= {this.state.description}
+                                           onChange = {this.onChange}
+                                    />
+                                    <br/>
+                                </div>
+
+                                <div className="form-group">
+                                    <input type="text" className="form-control form-control-lg"
+                                           placeholder="Book Price"
+                                           name = "price"
+                                           value= {this.state.price}
                                            onChange = {this.onChange}
                                     />
                                 </div>

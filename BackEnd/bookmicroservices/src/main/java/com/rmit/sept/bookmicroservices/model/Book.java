@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Date;
 import java.util.Collection;
 
@@ -26,8 +24,13 @@ public class Book {
     private String ISBN;
     @NotBlank(message = "Category is required")
     private String category;
+    @Column(length = 700)
     @NotBlank(message = "Description is required")
     private String description;
+
+    @DecimalMax("10000.0") @DecimalMin("0.0")
+    private double price;
+
 
     private Date created_At;
     private Date updated_At;
@@ -35,12 +38,13 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, String author, String ISBN, String category, String description) {
+    public Book(String title, String author, String ISBN, String category, String description, double price) {
         this.title = title;
         this.author = author;
         this.ISBN = ISBN;
         this.category = category;
         this.description = description;
+        this.price = price;
     }
 
     public long getId() {
@@ -105,6 +109,14 @@ public class Book {
 
     public void setUpdated_At(Date updated_At) {
         this.updated_At = updated_At;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     @PrePersist

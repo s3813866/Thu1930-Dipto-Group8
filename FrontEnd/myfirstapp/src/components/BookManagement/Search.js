@@ -32,6 +32,7 @@ class Search extends Component {
         this.onSubmit = this.onSubmit.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleBookButton = this.handleBookButton.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -45,6 +46,11 @@ class Search extends Component {
 
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value });
+    }
+
+    async handleBookButton(e){
+        const find = this.state.books.find(({id}) => id === parseInt(e.target.name))
+        localStorage.setItem("BookClickedOn", JSON.stringify(find));
     }
 
     async handleClose(){
@@ -151,7 +157,7 @@ class Search extends Component {
                                 </ListGroup>
                                 <Card.Body>
                                     <Card.Link href="#">Card Link</Card.Link>
-                                    <Card.Link href="#">Another Link</Card.Link>
+                                    <Button href="/BookPage" name={book.id} onClick={this.handleBookButton}>More...</Button>
                                 </Card.Body>
                             </Card>
                         </Grid>))}
