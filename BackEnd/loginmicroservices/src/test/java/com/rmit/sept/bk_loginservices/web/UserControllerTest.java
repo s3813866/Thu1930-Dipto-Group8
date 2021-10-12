@@ -29,12 +29,13 @@ class UserControllerTest {
 
     @BeforeAll
     public void setUp(){
+        testUsers.add(null);
         User user1 = new User("test1@test.com", "John Citizen", "testPASSWORD", "testPASSWORD", "add");
         result = new BeanPropertyBindingResult(user1, "user1");
-        userController.registerUser(user1, result);
+        testUsers.add((User) userController.registerUser(user1, result).getBody());
         User user2 = new User("test2@test.com", "Jane Doe", "passwordTEST", "passwordTEST", "add");
         result = new BeanPropertyBindingResult(user2, "user2");
-        userController.registerUser(user2, result);
+        testUsers.add((User) userController.registerUser(user2, result).getBody());
         User user3 = new User("test3@test.com", "Jim Do", "qwertyuiop", "qwertyuiop", "add");
         result = new BeanPropertyBindingResult(user3, "user3");
         testUsers.add((User) userController.registerUser(user3, result).getBody());
