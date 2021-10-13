@@ -1,7 +1,5 @@
 package com.rmit.sept.ordermicroservices.model;
 
-import org.springframework.context.annotation.Primary;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -17,7 +15,7 @@ public class OrderItem {
     @Max(10000) @Min(1)
     private int quantity;
     @DecimalMax("10000.0") @DecimalMin("0.0")
-    private double price;
+    private double subtotal;
 
     private Date created_At;
     private Date updated_At;
@@ -25,11 +23,11 @@ public class OrderItem {
     public OrderItem() {
     }
 
-    public OrderItem(long orderId, long bookId, int quantity, double price) {
+    public OrderItem(long orderId, long bookId, int quantity, double subtotal) {
         this.orderId = orderId;
         this.bookId = bookId;
         this.quantity = quantity;
-        this.price = price;
+        this.subtotal = subtotal;
     }
 
     public long getOrderId() {
@@ -56,12 +54,12 @@ public class OrderItem {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
-        return price;
+    public double getSubtotal() {
+        return subtotal;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setSubtotal(double price) {
+        this.subtotal = price;
     }
 
     public Date getCreated_At() {

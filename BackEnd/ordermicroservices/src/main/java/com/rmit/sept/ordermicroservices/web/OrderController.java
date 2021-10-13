@@ -42,7 +42,7 @@ public class OrderController {
             OrderItem newItem = new OrderItem(purchase.getOrderId(),
                     ((Integer)cartJson.get(i).get("bookId")).longValue(),
                     (int)cartJson.get(i).get("quantity"),
-                    (double)cartJson.get(i).get("price"));
+                    (double)cartJson.get(i).get("subtotal"));
             cartList.add(orderItemService.saveItem(newItem));
         }
 
