@@ -46,7 +46,8 @@ class App extends Component {
             <Route exact path="/bookAdded" component={BookAdded} />
             <Route exact path="/getBookByAuthor" component={GetBookByAuthor} />
 
-            <Route exact path="/home" component={Homepage} />
+            <Route exact path="/" component={Homepage} />
+              <Route exact path="/home" component={Homepage} />
               <Route exact path="/test" component={CustomizedSnackbars} />
               <Route exact path="/UserStatus" component={UserStatus} />
               <Route exact path="/BookListing" component={BookListing} />

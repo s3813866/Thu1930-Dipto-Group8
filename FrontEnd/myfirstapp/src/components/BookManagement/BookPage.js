@@ -5,6 +5,9 @@ import {Container} from "react-bootstrap";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import bookPic from "../Images/single-red-book-isolated-white-background-113636020.jpg";
+import { Panel } from 'rsuite';
+import Paper from "@mui/material/Paper";
+import {Button} from "@material-ui/core";
 
 class BookPage extends Component {
     constructor() {
@@ -49,38 +52,48 @@ class BookPage extends Component {
 
     render() {
         return (
-            <Container>
-                <h2>Book Details</h2>
-                <br/>
-                <br/>
-                <Box sx={{flexGrow: 1}}>
-                    <Grid container spacing={2} columns={16}>
-                        <Grid item xs={8}>
-                            <img src={bookPic} alt="Books"/>
-                        </Grid>
-                        <Grid item xs={8}>
-                            <h2>Title: {this.state.book.title}</h2>
-                            <br/>
-                            <h3>Author: {this.state.book.author}</h3>
-                            <br/>
-                            <h3>Category: {this.state.book.category}</h3>
-                            <br/>
-                            <h3>Description: {this.state.book.description}</h3>
-                            <br/>
-                            <h3>Description: {this.state.book.description}</h3>
-                            <br/>
-                            <h3>Price: {this.state.book.price}</h3>
-                        </Grid>
-                        <Grid item xs={7}>
 
-                        </Grid>
-                        <Grid item xs={8}>
-                            <button onClick={this.onSubmit}>add to cart</button>
-                        </Grid>
+            <>
 
+                <Container>
+                    <Grid item xs zeroMinWidth>
+                        <h2>Book Details</h2>
                     </Grid>
-                </Box>
-            </Container>
+                    <br/>
+                    <br/>
+                    <Paper sx={{ p: 2, margin: 'auto', maxWidth: 1000, flexGrow: 1 }}>
+                        <Box sx={{flexGrow: 1}}>
+                            <Grid container spacing={2} columns={16}>
+                                <Grid item xs={8}>
+                                    <img src={bookPic} alt="Books"/>
+                                </Grid>
+                                <Grid item xs={8}>
+                                    <h2>Title: {this.state.book.title}</h2>
+                                    <br/>
+                                    <h3>Author: {this.state.book.author}</h3>
+                                    <br/>
+                                    <h3>Category: {this.state.book.category}</h3>
+                                    <br/>
+                                    <h3>Description: {this.state.book.description}</h3>
+                                    <br/>
+                                    <h3>Description: {this.state.book.description}</h3>
+                                    <br/>
+                                    <h3>Price: {this.state.book.price}</h3>
+                                    <br/>
+                                </Grid>
+                                <Grid item xs={7}>
+
+                                </Grid>
+                                <Grid item xs={8}>
+                                    <Button variant="outlined" onClick={this.onSubmit}>Add to cart</Button>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    </Paper>
+
+
+                </Container>
+            </>
         )
     }
 }

@@ -156,7 +156,6 @@ class Search extends Component {
                                     <ListGroupItem>Category: {book.category}</ListGroupItem>
                                 </ListGroup>
                                 <Card.Body>
-                                    <Card.Link href="#">Card Link</Card.Link>
                                     <Button href="/BookPage" name={book.id} onClick={this.handleBookButton}>More...</Button>
                                 </Card.Body>
                             </Card>
