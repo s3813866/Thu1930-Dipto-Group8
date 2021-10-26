@@ -27,6 +27,7 @@ import UserStatus from "./components/UserManagement/UserStatus";
 import EditBookForm from "./pages/EditBookForm";
 import { setUserType } from "./actions/securityActions";
 import Logout from "./components/UserManagement/Logout"
+import AddReview from "./pages/AddReview";
 
 
 
