@@ -7,10 +7,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import {ClickAwayListener, Grow, Link, MenuList, Popper} from "@material-ui/core";
+import { ClickAwayListener, Grow, Link, MenuList, Popper } from "@material-ui/core";
 import Paper from "@mui/material/Paper";
-import {setUserType} from "../../actions/securityActions";
-
+import { setUserType } from "../../actions/securityActions";
 
 
 export default function MenuAppBar() {
@@ -66,7 +65,7 @@ export default function MenuAppBar() {
     };
 
     const accountType = setUserType();
-  
+
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -81,61 +80,61 @@ export default function MenuAppBar() {
                         onClick={handleToggle}
                     >
                         <MenuIcon />
-                        </IconButton>
-                        <Popper
-                            open={open}
-                            anchorEl={anchorRef.current}
-                            role={undefined}
-                            placement="bottom-start"
-                            transition
-                            disablePortal
-                        >
-                            {({ TransitionProps, placement }) => (
-                                <Grow
-                                    {...TransitionProps}
-                                    style={{
-                                        transformOrigin:
-                                            placement === 'bottom-start' ? 'left top' : 'left bottom',
-                                    }}
-                                >
-                                    <Paper>
-                                        <ClickAwayListener onClickAway={handleClose}>
-                                            <MenuList
-                                                autoFocusItem={open}
-                                                id="composition-menu"
-                                                aria-labelledby="composition-button"
-                                                onKeyDown={handleListKeyDown}
-                                            >
-                                                {/* Customer Buttons */}
-                                                <MenuItem onClick={handleClose} component={Link} href="/search">Search</MenuItem>
-                                                <MenuItem onClick={handleClose} component={Link} href="/BookListing">All Books</MenuItem>
-                                                <MenuItem onClick={handleClose} component={Link} href="/Enquiry">Enquiry</MenuItem>
+                    </IconButton>
+                    <Popper
+                        open={open}
+                        anchorEl={anchorRef.current}
+                        role={undefined}
+                        placement="bottom-start"
+                        transition
+                        disablePortal
+                    >
+                        {({ TransitionProps, placement }) => (
+                            <Grow
+                                {...TransitionProps}
+                                style={{
+                                    transformOrigin:
+                                        placement === 'bottom-start' ? 'left top' : 'left bottom',
+                                }}
+                            >
+                                <Paper>
+                                    <ClickAwayListener onClickAway={handleClose}>
+                                        <MenuList
+                                            autoFocusItem={open}
+                                            id="composition-menu"
+                                            aria-labelledby="composition-button"
+                                            onKeyDown={handleListKeyDown}
+                                        >
+                                            {/* Customer Buttons */}
+                                            <MenuItem onClick={handleClose} component={Link} href="/search">Search</MenuItem>
+                                            <MenuItem onClick={handleClose} component={Link} href="/BookListing">All Books</MenuItem>
+                                            <MenuItem onClick={handleClose} component={Link} href="/Enquiry">Enquiry</MenuItem>
 
-                                                {/* Admin Buttons */}
-                                                {(accountType === "ADMIN") ?
+                                            {/* Admin Buttons */}
+                                            {(accountType === "ADMIN") ?
                                                 <MenuItem onClick={handleClose} component={Link} href="/Dashboard">Dashboard</MenuItem> : () => null}
-                                                {(accountType === "ADMIN") ?
+                                            {(accountType === "ADMIN") ?
                                                 <MenuItem onClick={handleClose} component={Link} href="/addPerson">AddPerson</MenuItem> : () => null}
-                                                {(accountType === "ADMIN") ?
+                                            {(accountType === "ADMIN") ?
                                                 <MenuItem onClick={handleClose} component={Link} href="/ManageEnquiry">ManageEnquiry</MenuItem> : () => null}
-                                                {(accountType === "ADMIN") ?
+                                            {(accountType === "ADMIN") ?
                                                 <MenuItem onClick={handleClose} component={Link} href="/UserRequest">UserRequest</MenuItem> : () => null}
-                                                {(accountType === "ADMIN") ?
+                                            {(accountType === "ADMIN") ?
                                                 <MenuItem onClick={handleClose} component={Link} href="/UserStatus">UserStatus(Bans)</MenuItem> : () => null}
-                                                
-                                                {/* Admin && Seller Buttons */}
-                                                {(accountType === "ADMIN" || accountType === "SELLER") ?
+
+                                            {/* Admin && Seller Buttons */}
+                                            {(accountType === "ADMIN" || accountType === "SELLER") ?
                                                 <MenuItem onClick={handleClose} component={Link} href="/EditBookForm">EditBooks</MenuItem> : () => null}
-                                                {(accountType === "ADMIN" || accountType === "SELLER") ?
+                                            {(accountType === "ADMIN" || accountType === "SELLER") ?
                                                 <MenuItem onClick={handleClose} component={Link} href="/addBook">AddBook</MenuItem> : () => null}
-                                                
-                                            </MenuList>
-                                        </ClickAwayListener>
-                                    </Paper>
-                                </Grow>
-                            )}
-                        </Popper>
-                    <br/>
+
+                                        </MenuList>
+                                    </ClickAwayListener>
+                                </Paper>
+                            </Grow>
+                        )}
+                    </Popper>
+                    <br />
                     <a className="navbar-brand" href="/" style={{ color: 'red' }} sx={{ flexGrow: 1 }}>
                         Bookeroo
                     </a>
@@ -166,8 +165,19 @@ export default function MenuAppBar() {
                                 open={Boolean(anchorEl)}
                                 onClose={handleCloses}
                             >
-                                <MenuItem data-testid="MyAccount" onClose={handleCloses} component={Link} href="/register">My account</MenuItem>
-                                <MenuItem onClose={handleCloses} component={Link} href="/register">Home</MenuItem>
+                                {(accountType !== "ADMIN" || accountType !== "SELLER" || accountType !== "CUSTOMER") ?
+                                    <MenuItem data-testid="MyAccount" onClose={handleCloses} component={Link} href="/register">My Account</MenuItem> : () => null}
+
+                                {(accountType === "ADMIN" || accountType === "SELLER" || accountType === "CUSTOMER") ?
+                                    <MenuItem onClose={handleCloses} component={Link} href="/home">Home</MenuItem> : () => null}
+
+                                {/*Login and Logout*/}
+                                {(accountType === "ADMIN" || accountType === "SELLER" || accountType === "CUSTOMER") ?
+                                    <MenuItem onClose={handleCloses} component={Link} href="/Logout">Logout</MenuItem> : () => null}
+
+                                {(accountType <= 0) ?
+                                    <MenuItem data-testid="Login" onClose={handleCloses} component={Link} href="/Login">Login</MenuItem> : () => null}
+
                             </Menu>
                         </div>
                     )}
