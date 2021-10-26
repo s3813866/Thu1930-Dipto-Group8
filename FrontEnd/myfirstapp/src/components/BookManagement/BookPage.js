@@ -140,7 +140,8 @@ class BookPage extends Component {
                             ))}
                         </List>
                     </Paper>
-                    <Button></Button>
+                    <br/>
+                    <Button variant="outlined" href="/AddReview">Add review</Button>
                     <br/>
                     <br/>
                     <br/>
