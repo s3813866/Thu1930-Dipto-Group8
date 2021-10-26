@@ -29,7 +29,6 @@ class BookListing extends Component {
         const data = await this.props.getAllBooks();
 
         if(data){
-            console.log(data);
             this.setState({bookList: data.slice()});
             this.setState({listStatus: "Book found"})
         }

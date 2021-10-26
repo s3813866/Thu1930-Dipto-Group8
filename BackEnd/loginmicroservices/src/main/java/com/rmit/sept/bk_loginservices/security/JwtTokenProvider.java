@@ -74,5 +74,12 @@ public class JwtTokenProvider {
         return accountType;
     }
 
+    public String getNameFromJWT(String token){
+        Claims claims = Jwts.parser().setSigningKey(SecurityConstant.SECRET).parseClaimsJws(token).getBody();
+        String accountType = (String)claims.get("fullName");
+
+        return accountType;
+    }
+
 }
 

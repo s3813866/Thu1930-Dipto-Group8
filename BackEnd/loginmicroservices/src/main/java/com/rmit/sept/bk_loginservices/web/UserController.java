@@ -193,4 +193,9 @@ public class UserController {
         return ResponseEntity.ok(id);
     }
 
+    @GetMapping("/tokenname/{token}")
+    public ResponseEntity<?> getNameFromToken(@PathVariable String token){
+        String name = tokenProvider.getNameFromJWT(token);
+        return ResponseEntity.ok(name);
+    }
 }
