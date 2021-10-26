@@ -1,7 +1,26 @@
 import React, { Component } from 'react'
 import StatsPic from "./Stats.jpg"
+import {connect} from "react-redux";
+import {getBookCSV} from "../../actions/bookActions";
+import { CSVLink } from "react-csv";
 
 class Statistics extends Component {
+    constructor() {
+        super();
+        this.state = {
+            data: [],
+            CSV: false
+        }
+        this.onSubmit = this.onSubmit.bind(this);
+
+    }
+
+    async onSubmit(e){
+        console.log("here")
+        const res = await this.props.getBookCSV()
+        this.setState({data: res})
+        this.setState({CSV: true})
+    }
     render() {
         return (
             <div className="container" data-testid="stats">
@@ -16,12 +35,19 @@ class Statistics extends Component {
                         </div>
                         <div className="col-md-4 d-none d-lg-block">
                             <ul className="list-group">
-                                <a href="#">
+                                <a onClick={this.onSubmit}>
                                     <li className="list-group-item board">
-                                        <i className="fas fa-file pr-1"> Download CSV</i>
-
+                                        <i className="fas fa-file pr-1" > Download CSV</i>
                                     </li>
                                 </a>
+                                {this.state.CSV === true && (
+                                    <a>
+                                    <CSVLink data={this.state.data} separator={","}>
+                                    Download me
+                                    </CSVLink>
+                                    </a>
+                                    )}
+
                                 <a href="#">
                                     <li className="list-group-item update">
                                         <i className="fas fa-sun"> Daily Statistics </i>
@@ -40,4 +66,4 @@ class Statistics extends Component {
         )
     }
 }
-export default Statistics;
+export default connect(null, {getBookCSV})(Statistics);
