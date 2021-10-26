@@ -25,7 +25,7 @@ import BookPage from "./components/BookManagement/BookPage";
 import CartSummary from "./components/Cart/CartSummary";
 import UserStatus from "./components/UserManagement/UserStatus";
 import EditBookForm from "./pages/EditBookForm";
-import {setUserType} from "./actions/securityActions";
+import { setUserType } from "./actions/securityActions";
 import Logout from "./components/UserManagement/Logout"
 
 
@@ -62,8 +62,12 @@ class App extends Component {
               <Route exact path="/ManageEnquiry" component={ManageEnquiry} />
               <Route exact path="/BookPage" component={BookPage} /> {/*Requires fix: Cannot read properties of null (reading 'title')*/}
               <Route exact path="/CartSummary" component={CartSummary} /> {/*Requires fix: null (reading 'reduce') -> Wrap with if statement to check for null*/}
-              
+
               <Route exact path="/Logout" component={Logout} />
+              <Route exact path="/AddReview" component={AddReview} />
+
+
+
               {/* Edit Book Form*/}
               <Route exact path="/EditBookForm" component={
                 (accountType === "ADMIN" || "SELLER") ?
@@ -80,6 +84,9 @@ class App extends Component {
 
               <Route path="/addPerson" component={
                 (accountType === "ADMIN") ? () => <AddPerson /> : () => <Homepage />} />
+
+              {/*<Route exact path="/AddReview" component={(accountType === "CUSTOMER") ? () => <AddReview /> : () => <Login />} />*/}
+
 
               <Route exact path="" component={PageNotFound} />
             </Switch>

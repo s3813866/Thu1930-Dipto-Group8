@@ -50,7 +50,8 @@ class Search extends Component {
 
     async handleBookButton(e){
         const find = this.state.books.find(({id}) => id === parseInt(e.target.name))
-        localStorage.setItem("BookClickedOn", JSON.stringify(find));
+        console.log(find.id)
+        localStorage.setItem("BookClickedOn", JSON.stringify(find.id));
     }
 
     async handleClose(){

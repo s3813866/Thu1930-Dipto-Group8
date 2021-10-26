@@ -1,24 +1,39 @@
-import React, {Component, useState} from 'react'
+import React, {Component} from 'react'
 import {connect} from "react-redux";
 import {getBookByID} from "../../actions/bookActions";
+import {getReview} from "../../actions/ReviewAction";
 import {Container} from "react-bootstrap";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import bookPic from "../Images/single-red-book-isolated-white-background-113636020.jpg";
-import { Panel } from 'rsuite';
 import Paper from "@mui/material/Paper";
-import {Button} from "@material-ui/core";
+import {Avatar, Button, Divider, List, ListItem, ListItemAvatar, ListItemText, Typography} from "@material-ui/core";
+import {Rating} from "@mui/material";
 
 class BookPage extends Component {
     constructor() {
         super();
 
         this.state = {
-            book: JSON.parse(localStorage.getItem("BookClickedOn"))
+            book: "",
+            bookReviews: []
         };
 
 
         this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    async componentDidMount(){
+        const bookid = parseInt(localStorage.getItem("BookClickedOn"))
+        const bookObj = await this.props.getBookByID(bookid)
+        const reviews = await this.props.getReview(bookid)
+
+        this.setState({book: bookObj})
+        if(reviews){
+            this.setState({bookReviews: reviews})
+        }
+
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -33,7 +48,6 @@ class BookPage extends Component {
 
     async onSubmit() {
          if(localStorage.getItem("cart")){
-             console.log("exist")
              console.log(this.state.book)
              const cart = JSON.parse(localStorage.getItem("cart"))
              const data = [this.state.book]
@@ -52,9 +66,7 @@ class BookPage extends Component {
 
     render() {
         return (
-
             <>
-
                 <Container>
                     <Grid item xs zeroMinWidth>
                         <h2>Book Details</h2>
@@ -90,7 +102,49 @@ class BookPage extends Component {
                             </Grid>
                         </Box>
                     </Paper>
+                    <br/>
+                    <br/>
+                    <h2>Reviews</h2>
+                    <br/>
 
+                    <Paper>
+                        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                            {this.state.bookReviews.map((review =>
+                                <>
+                                    <ListItem alignItems="flex-start" key={review.id}>
+                                    <ListItemAvatar>
+                                        <Avatar alt="Cindy Baker" />
+                                    </ListItemAvatar>
+                                    <ListItemText
+                                        primary={review.heading}
+                                        secondary={
+                                            <React.Fragment>
+                                                <Typography
+                                                    sx={{ display: 'inline' }}
+                                                    component="span"
+                                                    variant="body2"
+                                                    color="text.primary"
+                                                >
+                                                    <Rating name="read-only" value={review.rating} readOnly />
+                                                    <br/>
+                                                    {review.reviewText}
+                                                </Typography>
+
+                                            </React.Fragment>
+                                        }
+                                    />
+                                </ListItem>
+                                    <Divider variant="inset" component="li"/>
+                                </>
+
+                            ))}
+                        </List>
+                    </Paper>
+                    <br/>
+                    <Button variant="outlined" href="/AddReview">Add review</Button>
+                    <br/>
+                    <br/>
+                    <br/>
 
                 </Container>
             </>
@@ -98,6 +152,6 @@ class BookPage extends Component {
     }
 }
 
-export default connect(null, {getBookByID})(BookPage);
+export default connect(null, {getBookByID, getReview})(BookPage);
 
 

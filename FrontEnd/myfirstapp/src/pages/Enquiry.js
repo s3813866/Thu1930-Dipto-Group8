@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
-import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {Container, Form} from "react-bootstrap";
-import {Button} from "@material-ui/core";
 import {createEnquiry} from "../actions/EnquiryActions";
 
 class Enquiry extends Component {

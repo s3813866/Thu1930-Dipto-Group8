@@ -3,7 +3,7 @@ import {GET_ERRORS, GET_PERSONS, GET_PERSON, BAN_PERSON} from "./types";
 
 export const createPerson = (person, history) => async dispatch => {
   try {
-    const res = await axios.post("http://localhost:8080/api/person", person);
+    const res = await axios.post("http://localhost:8081/api/person", person);
     history.push("/home");
   } catch (err) {
     dispatch({
@@ -15,7 +15,7 @@ export const createPerson = (person, history) => async dispatch => {
 
 export const getPersons = () => async dispatch => {
   try{
-    const res = await axios.get("/api/users/getAllUsers");
+    const res = await axios.get("http://localhost:8081/api/users/getAllUsers");
     dispatch({
       type: GET_PERSONS,
       payload: res.data
@@ -30,7 +30,7 @@ export const getPersons = () => async dispatch => {
 
 export const getPerson = (id, history) => async dispatch => {
   try {
-    const res = await axios.get(`/api/person/${id}`);
+    const res = await axios.get(`http://localhost:8081/api/person/${id}`);
     dispatch({
       type: GET_PERSON,
       payload: res.data
@@ -43,7 +43,7 @@ export const getPerson = (id, history) => async dispatch => {
 export const banUser= (id) => async dispatch => {
 
   try{
-    const LINK = `/api/users/ban/`
+    const LINK = `http://localhost:8081/api/users/ban/`
     const res = await axios.put(`${LINK}${id}`);
     dispatch({
       type: BAN_PERSON,
@@ -60,7 +60,7 @@ export const banUser= (id) => async dispatch => {
 export const unbanUser= (id) => async dispatch => {
 
   try{
-    const LINK = `/api/users/unban/`
+    const LINK = `http://localhost:8081/api/users/unban/`
     const res = await axios.put(`${LINK}${id}`);
     dispatch({
       type: BAN_PERSON,

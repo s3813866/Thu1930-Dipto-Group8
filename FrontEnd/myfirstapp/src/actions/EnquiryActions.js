@@ -3,7 +3,7 @@ import {GET_ENQUIRIES, GET_ERRORS, GET_TITLE} from "./types";
 
 export const createEnquiry = (enquiry, history) => async dispatch =>{
     try{
-        const LINK = `/api/enquiries/submit`
+        const LINK = `http://localhost:8081/api/enquiries/submit`
         const result = await axios.post(LINK,enquiry);
         if(result){
             console.log("ok")
@@ -24,7 +24,7 @@ export const createEnquiry = (enquiry, history) => async dispatch =>{
 
 export const getAllEnquiry = () => async dispatch => {
     try{
-        const res = await axios.get(`/api/enquiries/all`);
+        const res = await axios.get(`http://localhost:8081/api/enquiries/all`);
         dispatch({
             type: GET_ENQUIRIES,
             payload: res.data
@@ -39,7 +39,7 @@ export const getAllEnquiry = () => async dispatch => {
 
 export const deleteEnquiry = (id) => async dispatch =>{
     try{
-        const LINK = `/api/enquiries/delete/`
+        const LINK = `http://localhost:8081/api/enquiries/delete/`
         const res = await axios.delete(`${LINK}${id.id}`);
 
     }catch(error){
