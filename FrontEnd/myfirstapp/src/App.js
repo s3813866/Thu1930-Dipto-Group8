@@ -55,6 +55,7 @@ class App extends Component {
               {/*not needed for now*/}
               {/*<Route exact path="/getBookById" component={GetBookById} />*/}
               <Route exact path="/home" component={Homepage} />
+              <Route exact path="/" component={Homepage} />
               <Route exact path="/test" component={CustomizedSnackbars} />
               <Route exact path="/UserStatus" component={UserStatus} />
               <Route exact path="/BookListing" component={BookListing} />
@@ -89,7 +90,7 @@ class App extends Component {
               {/*<Route exact path="/AddReview" component={(accountType === "CUSTOMER") ? () => <AddReview /> : () => <Login />} />*/}
 
 
-              <Route exact path="" component={PageNotFound} />
+              <Route component={PageNotFound} />
             </Switch>
 
           </div>

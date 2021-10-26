@@ -88,6 +88,7 @@ export default function MenuAppBar() {
                         placement="bottom-start"
                         transition
                         disablePortal
+                        style={{zIndex:99999}}
                     >
                         {({ TransitionProps, placement }) => (
                             <Grow
@@ -135,7 +136,7 @@ export default function MenuAppBar() {
                         )}
                     </Popper>
                     <br />
-                    <a className="navbar-brand" href="/" style={{ color: 'red' }} sx={{ flexGrow: 1 }}>
+                    <a className="navbar-brand" href="/" style={{ color: 'red', marginLeft:15 }} sx={{ flexGrow: 1 }}>
                         Bookeroo
                     </a>
                     {(
@@ -147,6 +148,7 @@ export default function MenuAppBar() {
                                 aria-haspopup="true"
                                 onClick={handleMenu}
                                 color="inherit"
+                                style={{marginLeft: 1500}}
                             >
                                 <AccountCircle />
                             </IconButton>
@@ -166,7 +168,7 @@ export default function MenuAppBar() {
                                 onClose={handleCloses}
                             >
                                 {(accountType !== "ADMIN" || accountType !== "SELLER" || accountType !== "CUSTOMER") ?
-                                    <MenuItem data-testid="MyAccount" onClose={handleCloses} component={Link} href="/register">My Account</MenuItem> : () => null}
+                                    <MenuItem data-testid="MyAccount" onClose={handleCloses} component={Link} href="/register">Register</MenuItem> : () => null}
 
                                 {(accountType === "ADMIN" || accountType === "SELLER" || accountType === "CUSTOMER") ?
                                     <MenuItem onClose={handleCloses} component={Link} href="/home">Home</MenuItem> : () => null}
