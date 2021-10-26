@@ -124,9 +124,9 @@ export default function MenuAppBar() {
                                                 <MenuItem onClick={handleClose} component={Link} href="/UserStatus">UserStatus(Bans)</MenuItem> : () => null}
                                                 
                                                 {/* Admin && Seller Buttons */}
-                                                {(accountType === "ADMIN" || "SELLER") ?
+                                                {(accountType === "ADMIN" || accountType === "SELLER") ?
                                                 <MenuItem onClick={handleClose} component={Link} href="/EditBookForm">EditBooks</MenuItem> : () => null}
-                                                {(accountType === "ADMIN" || "SELLER") ?
+                                                {(accountType === "ADMIN" || accountType === "SELLER") ?
                                                 <MenuItem onClick={handleClose} component={Link} href="/addBook">AddBook</MenuItem> : () => null}
                                                 
                                             </MenuList>
@@ -166,7 +166,7 @@ export default function MenuAppBar() {
                                 open={Boolean(anchorEl)}
                                 onClose={handleCloses}
                             >
-                                <MenuItem onClose={handleCloses} component={Link} href="/register">My account</MenuItem>
+                                <MenuItem data-testid="MyAccount" onClose={handleCloses} component={Link} href="/register">My account</MenuItem>
                                 <MenuItem onClose={handleCloses} component={Link} href="/register">Home</MenuItem>
                             </Menu>
                         </div>
