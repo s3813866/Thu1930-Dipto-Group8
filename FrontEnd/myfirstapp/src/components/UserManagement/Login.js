@@ -8,9 +8,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 function Login() {
 
     const postLogin = async (loginDetails) => {
-        return axios.post("/api/users/login", loginDetails);
+        return axios.post("http://localhost:8081/api/users/login", loginDetails);
     };
-
 
     const [Username, setUsername] = useState("");
     const [Password, setPassword] = useState("");

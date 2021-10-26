@@ -29,6 +29,7 @@ import EditBookForm from "./pages/EditBookForm";
 
 import axios from "axios";
 import MenuListComposition from "./components/Layout/test";
+import AddReview from "./pages/AddReview";
 
 async function getUserType(bearerToken) {
   const LINK = `/api/users/type`
@@ -82,7 +83,8 @@ class App extends Component {
               <Route exact path="/ManageEnquiry" component={ManageEnquiry} />
               <Route exact path="/BookPage" component={BookPage} />
               <Route exact path="/CartSummary" component={CartSummary} />
-              <Route exact path="/test2" component={MenuListComposition} />
+              <Route exact path="/AddReview" component={AddReview} />
+
 
 
               {/* Edit Book Form*/}
@@ -101,6 +103,9 @@ class App extends Component {
 
               <Route path="/addPerson" component={
                 (accountType === "ADMIN") ? () => <AddPerson /> : () => <Homepage />} />
+
+              {/*<Route exact path="/AddReview" component={(accountType === "CUSTOMER") ? () => <AddReview /> : () => <Login />} />*/}
+
 
               <Route exact path="" component={PageNotFound} />
             </Switch>
