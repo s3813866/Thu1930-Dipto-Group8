@@ -1,5 +1,5 @@
 import axios from "axios";
-import {GET_ERRORS, SET_CURRENT_USER} from "./types";
+import { GET_ERRORS, SET_CURRENT_USER } from "./types";
 import setJWTToken from "../securityUtils/setJWTToken";
 import jwt_decode from "jwt-decode";
 
@@ -28,6 +28,33 @@ export const createNewUser = (newUser, history) => async dispatch => {
 
 };
 
+export async function getUserType(bearerToken) {
+    const LINK = `/api/users/type`
+    try {
+        const res = await axios.get(`${LINK}/${bearerToken}`);
+
+        const retUser = eval(JSON.stringify(res.data));
+        console.log("User Type: ");
+        console.log(retUser);
+
+        sessionStorage.setItem("userType", retUser);
+
+        return retUser;
+
+    } catch (error) {
+        console.log("getUser Error");
+    }
+};
+
+export function setUserType() {
+    if (localStorage.length > 0) {
+        const accountTypeToken = localStorage.getItem("token").replace(/^Bearer\s+/, "");
+        console.log(accountTypeToken);
+        getUserType(accountTypeToken);
+    }
+    return sessionStorage.getItem("userType");
+    //const accountType = sessionStorage.getItem("userType");
+}
 
 export const login = LoginRequest => async dispatch => {
     try {
@@ -45,9 +72,11 @@ export const login = LoginRequest => async dispatch => {
         // dispatch to our securityReducer
 
     }
-    catch (err)
-    {
+    catch (err) {
 
     }
 
+
 }
+
+

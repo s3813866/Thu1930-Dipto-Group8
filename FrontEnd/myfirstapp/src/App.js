@@ -24,36 +24,13 @@ import ManageEnquiry from "./components/UserManagement/ManageEnquiry";
 import BookPage from "./components/BookManagement/BookPage";
 import CartSummary from "./components/Cart/CartSummary";
 import UserStatus from "./components/UserManagement/UserStatus";
-
 import EditBookForm from "./pages/EditBookForm";
+import {setUserType} from "./actions/securityActions";
 
-import axios from "axios";
-import MenuListComposition from "./components/Layout/test";
-
-async function getUserType(bearerToken) {
-  const LINK = `/api/users/type`
-  try {
-    const res = await axios.get(`${LINK}/${bearerToken}`);
-
-    const retUser = eval(JSON.stringify(res.data));
-    console.log("User Type: ");
-    console.log(retUser);
-
-    sessionStorage.setItem("userType", retUser);
-
-    return retUser;
-
-  } catch (error) {
-    console.log("getUser Error");
-  }
-};
 
 class App extends Component {
   render() {
-    const accountTypeToken = localStorage.getItem("token").replace(/^Bearer\s+/, "");
-    console.log(accountTypeToken);
-    getUserType(accountTypeToken);
-    const accountType = sessionStorage.getItem("userType")
+    const accountType = setUserType();
 
     return (
       <Provider store={store}>
@@ -80,10 +57,8 @@ class App extends Component {
               <Route exact path="/UserRequest" component={UserRequests} />
               <Route exact path="/Enquiry" component={Enquiry} />
               <Route exact path="/ManageEnquiry" component={ManageEnquiry} />
-              <Route exact path="/BookPage" component={BookPage} />
-              <Route exact path="/CartSummary" component={CartSummary} />
-              <Route exact path="/test2" component={MenuListComposition} />
-
+              <Route exact path="/BookPage" component={BookPage} /> {/*Requires fix: Cannot read properties of null (reading 'title')*/}
+              <Route exact path="/CartSummary" component={CartSummary} /> {/*Requires fix: null (reading 'reduce') -> Wrap with if statement to check for null*/}
 
               {/* Edit Book Form*/}
               <Route exact path="/EditBookForm" component={

@@ -9,6 +9,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import {ClickAwayListener, Grow, Link, MenuList, Popper} from "@material-ui/core";
 import Paper from "@mui/material/Paper";
+import {setUserType} from "../../actions/securityActions";
+
+
 
 export default function MenuAppBar() {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -62,7 +65,8 @@ export default function MenuAppBar() {
         setAnchorEl(null);
     };
 
-
+    const accountType = setUserType();
+  
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -102,9 +106,29 @@ export default function MenuAppBar() {
                                                 aria-labelledby="composition-button"
                                                 onKeyDown={handleListKeyDown}
                                             >
+                                                {/* Customer Buttons */}
                                                 <MenuItem onClick={handleClose} component={Link} href="/search">Search</MenuItem>
                                                 <MenuItem onClick={handleClose} component={Link} href="/BookListing">All Books</MenuItem>
                                                 <MenuItem onClick={handleClose} component={Link} href="/Enquiry">Enquiry</MenuItem>
+
+                                                {/* Admin Buttons */}
+                                                {(accountType === "ADMIN") ?
+                                                <MenuItem onClick={handleClose} component={Link} href="/Dashboard">Dashboard</MenuItem> : () => null}
+                                                {(accountType === "ADMIN") ?
+                                                <MenuItem onClick={handleClose} component={Link} href="/addPerson">AddPerson</MenuItem> : () => null}
+                                                {(accountType === "ADMIN") ?
+                                                <MenuItem onClick={handleClose} component={Link} href="/ManageEnquiry">ManageEnquiry</MenuItem> : () => null}
+                                                {(accountType === "ADMIN") ?
+                                                <MenuItem onClick={handleClose} component={Link} href="/UserRequest">UserRequest</MenuItem> : () => null}
+                                                {(accountType === "ADMIN") ?
+                                                <MenuItem onClick={handleClose} component={Link} href="/UserStatus">UserStatus(Bans)</MenuItem> : () => null}
+                                                
+                                                {/* Admin && Seller Buttons */}
+                                                {(accountType === "ADMIN" || "SELLER") ?
+                                                <MenuItem onClick={handleClose} component={Link} href="/EditBookForm">EditBooks</MenuItem> : () => null}
+                                                {(accountType === "ADMIN" || "SELLER") ?
+                                                <MenuItem onClick={handleClose} component={Link} href="/addBook">AddBook</MenuItem> : () => null}
+                                                
                                             </MenuList>
                                         </ClickAwayListener>
                                     </Paper>
