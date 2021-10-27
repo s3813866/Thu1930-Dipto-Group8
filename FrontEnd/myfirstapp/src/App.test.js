@@ -42,10 +42,10 @@ test("renders Dog dashboard properly", () =>{
   expect(getByTestId('person'))
 })
 
-test("renders statistics dashboard properly", () =>{
-  const {getByTestId} = render(<Statistics/>)
-  expect(getByTestId('stats'))
-})
+// test("renders statistics dashboard properly", () =>{
+//   const {getByTestId} = render(<Statistics/>)
+//   expect(getByTestId('stats'))
+// })
 
 // test("renders login form properly", () =>{
 //   const {getByTestId} = render(<Login />)
