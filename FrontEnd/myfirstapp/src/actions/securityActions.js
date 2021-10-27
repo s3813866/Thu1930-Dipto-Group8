@@ -5,7 +5,6 @@ import {GET_ERRORS, SET_CURRENT_USER} from "./types";
 export const createNewUser = (newUser, history) => async dispatch => {
 
     try {
-
         await axios.post("http://localhost:8081/api/users/register", newUser);
         history.push("/login");
         dispatch({
@@ -20,14 +19,11 @@ export const createNewUser = (newUser, history) => async dispatch => {
             payload: err.response.data
         });
 
-
-
     }
-
 };
 
 export async function getUserType(bearerToken) {
-    const LINK = `/api/users/type`
+    const LINK = `http://localhost:8081/api/users/type`
     try {
         const res = await axios.get(`${LINK}/${bearerToken}`);
 
@@ -45,13 +41,14 @@ export async function getUserType(bearerToken) {
 };
 
 export function setUserType() {
-    if (localStorage.length > 1) {
+
+    if (localStorage.getItem("token")) {
         const accountTypeToken = localStorage.getItem("token").replace(/^Bearer\s+/, "");
         console.log(accountTypeToken);
         getUserType(accountTypeToken);
     }
     return sessionStorage.getItem("userType");
-    //const accountType = sessionStorage.getItem("userType");
+    // const accountType = sessionStorage.getItem("userType");
 }
 
 export const login = LoginRequest => async dispatch => {

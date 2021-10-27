@@ -21,7 +21,13 @@ class BookListing extends Component {
         };
 
         this.onSubmit = this.onSubmit.bind(this);
+        this.handleButton = this.handleButton.bind(this);
 
+    }
+
+    handleButton(e) {
+        const find = parseInt(e.target.name)
+        localStorage.setItem("BookClickedOn", JSON.stringify(find));
     }
 
     async onSubmit(e){
@@ -65,7 +71,7 @@ class BookListing extends Component {
                                     <ListGroupItem>Category: {book.category}</ListGroupItem>
                                 </ListGroup>
                                 <Card.Body>
-                                    <Button href="/BookPage" name={book.id} onClick={this.handleBookButton}>More...</Button>
+                                    <Button href="/BookPage" name={book.id} onClick={this.handleButton}>More...</Button>
                                 </Card.Body>
                             </Card>
                         </Grid>))}

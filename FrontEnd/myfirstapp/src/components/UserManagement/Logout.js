@@ -30,12 +30,14 @@ export default function Logout() {
 
     localStorage.removeItem("token");
     sessionStorage.removeItem("userType");
+    console.log("logout")
+    console.log(sessionStorage.getItem("userType"))
 
     window.localStorage.clear();
     window.sessionStorage.clear();
 
-    // localStorage.clear();
-    // sessionStorage.clear();
+    localStorage.clear();
+    sessionStorage.clear();
 
     return (
         <div className={classes.root}>

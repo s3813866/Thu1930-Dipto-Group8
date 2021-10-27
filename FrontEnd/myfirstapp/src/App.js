@@ -62,11 +62,12 @@ class App extends Component {
               <Route exact path="/UserRequest" component={UserRequests} />
               <Route exact path="/Enquiry" component={Enquiry} />
               <Route exact path="/ManageEnquiry" component={ManageEnquiry} />
-              <Route exact path="/BookPage" component={BookPage} /> {/*Requires fix: Cannot read properties of null (reading 'title')*/}
-              <Route exact path="/CartSummary" component={CartSummary} /> {/*Requires fix: null (reading 'reduce') -> Wrap with if statement to check for null*/}
+              <Route exact path="/BookPage" component={BookPage} />
+              <Route exact path="/CartSummary" component={CartSummary} />
 
               <Route exact path="/Logout" component={Logout} />
-              <Route exact path="/AddReview" component={AddReview} />
+              <Route exact path="/AddReview" component={AddReview}/>
+
 
 
 
@@ -83,6 +84,7 @@ class App extends Component {
               }
               <Route path="/dashboard" component={
                 (accountType === "ADMIN") ? () => <Dashboard /> : () => <Homepage />} />
+
 
               <Route path="/addPerson" component={
                 (accountType === "ADMIN") ? () => <AddPerson /> : () => <Homepage />} />
