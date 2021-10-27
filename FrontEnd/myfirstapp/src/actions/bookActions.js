@@ -92,7 +92,19 @@ export const getCategory = (category, history) => async dispatch => {
 
 };
 
+export const getBookCSV = () => async dispatch => {
+    try {
+        const res = await axios.get(`/api/books/export/books.csv`);
+        dispatch({
+            type: GET_BOOK,
+            payload: res.data
+        });
+        return res.data
 
+    } catch (error) {
+        console.log("error")
+    }
+};
 
 export const getBookByID = (id) => async dispatch => {
 
@@ -132,5 +144,6 @@ export const getAllBooks = () => async dispatch  => {
     }catch (error){
         console.log(error);
     }
+
 
 }
