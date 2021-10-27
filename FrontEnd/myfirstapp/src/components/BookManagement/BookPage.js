@@ -28,7 +28,9 @@ class BookPage extends Component {
         const bookObj = await this.props.getBookByID(bookid)
         const reviews = await this.props.getReview(bookid)
 
-        this.setState({book: bookObj})
+        if(bookObj){
+            this.setState({book: bookObj})
+        }
         if(reviews){
             this.setState({bookReviews: reviews})
         }
@@ -145,7 +147,6 @@ class BookPage extends Component {
                     <br/>
                     <br/>
                     <br/>
-
                 </Container>
             </>
         )

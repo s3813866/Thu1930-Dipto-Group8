@@ -23,8 +23,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-window.localStorage.clear(); 
-window.sessionStorage.clear(); 
+
 
 export default function Logout() {
     const classes = useStyles();
@@ -32,8 +31,11 @@ export default function Logout() {
     localStorage.removeItem("token");
     sessionStorage.removeItem("userType");
 
-    localStorage.clear();
-    sessionStorage.clear();
+    window.localStorage.clear();
+    window.sessionStorage.clear();
+
+    // localStorage.clear();
+    // sessionStorage.clear();
 
     return (
         <div className={classes.root}>

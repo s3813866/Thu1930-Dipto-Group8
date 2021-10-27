@@ -45,7 +45,7 @@ export async function getUserType(bearerToken) {
 };
 
 export function setUserType() {
-    if (localStorage.length > 0) {
+    if (localStorage.length > 1) {
         const accountTypeToken = localStorage.getItem("token").replace(/^Bearer\s+/, "");
         console.log(accountTypeToken);
         getUserType(accountTypeToken);
