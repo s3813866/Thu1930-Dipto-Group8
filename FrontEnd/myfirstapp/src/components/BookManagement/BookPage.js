@@ -9,6 +9,10 @@ import bookPic from "../Images/single-red-book-isolated-white-background-1136360
 import Paper from "@mui/material/Paper";
 import {Avatar, Button, Divider, List, ListItem, ListItemAvatar, ListItemText, Typography} from "@material-ui/core";
 import {Rating} from "@mui/material";
+import { Worker } from '@react-pdf-viewer/core';
+import { Viewer } from '@react-pdf-viewer/core';
+import pdf from "../Images/Free Best Binder Cover Template US.pdf"
+import '@react-pdf-viewer/core/lib/styles/index.css';
 
 class BookPage extends Component {
     constructor() {
@@ -145,6 +149,22 @@ class BookPage extends Component {
                     <br/>
                     <Button variant="outlined" href="/AddReview">Add review</Button>
                     <br/>
+                    <br/>
+                    <br/>
+
+                    <h2>PDF Preview</h2>
+                    <br/>
+                    <br/>
+                    <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
+                        <div
+                            style={{
+                                border: '1px solid rgba(0, 0, 0, 0.3)',
+                                height: '750px',
+                            }}
+                        >
+                            <Viewer fileUrl={pdf} />
+                        </div>
+                    </Worker>
                     <br/>
                     <br/>
                 </Container>
