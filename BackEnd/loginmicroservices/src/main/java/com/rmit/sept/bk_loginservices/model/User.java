@@ -1,6 +1,7 @@
 package com.rmit.sept.bk_loginservices.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rmit.sept.bk_loginservices.AccountType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -27,12 +28,18 @@ public class User implements UserDetails {
     private String password;
     @Transient
     private String confirmPassword;
+    @NotBlank(message = "Password field is required")
+    private String address;
+
+    private AccountType accountType;
+    private String status;
     private Date create_At;
     private Date update_At;
 
     //OneToMany with Project
 
     public User() {
+        //something => something else.
     }
 
     public Long getId() {
@@ -49,6 +56,14 @@ public class User implements UserDetails {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public User(String username, String fullName, String password, String confirmPassword, String address) {
+        this.username = username;
+        this.fullName = fullName;
+        this.password = password;
+        this.confirmPassword = confirmPassword;
+        this.address = address;
     }
 
     public String getFullName() {
@@ -89,6 +104,14 @@ public class User implements UserDetails {
 
     public void setUpdate_At(Date update_At) {
         this.update_At = update_At;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @PrePersist
@@ -133,5 +156,21 @@ public class User implements UserDetails {
     @JsonIgnore
     public boolean isEnabled() {
         return true;
+    }
+
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
+    }
+    
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -11,3 +11,46 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+h2{
+  text-align: center;
+}
+
+.h1Contact{
+  text-align: center;
+}
+title{
+  text-align: center;
+}
+
+figcaption {
+  position: absolute;
+  bottom: 26rem;
+  margin: 0 50rem;
+  color: aqua;
+  font-size: 3.4em;
+  text-align:center;
+
+}
+
+table{
+  font-size: 1.9em;
+}
+.fas.fa-user-check{
+  color:blue;
+}
+
+.far.fa-question-circle{
+  color:peru;
+}
+.fas.fa-sun{
+  color:gold;
+}
+.fas.fa-moon{
+  color:lightslategray;
+}
+
+
+
+
+

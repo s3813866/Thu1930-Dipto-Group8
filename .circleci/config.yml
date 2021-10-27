@@ -1,0 +1,129 @@
+# References:
+# https://www.youtube.com/watch?v=_OZ5xVteC3s
+# https://github.com/discospiff/SpringBootMicroservicesWithIntelliJIDEA/blob/master/.circleci/config.yml
+# https://www.youtube.com/watch?v=3V84yEz6HwA
+
+# Using CircleCI 2.1
+version: 2.1 
+jobs: 
+
+#
+## BookBackend Microservice
+#
+
+  "build-bookbackend-microservice": 
+    working_directory: ~/repoPath/BackEnd/bookmicroservices 
+
+    docker: 
+      - image: circleci/openjdk:11-stretch 
+
+    steps: 
+      - checkout:
+          path: ~/repoPath
+      - setup_remote_docker
+
+      - restore_cache: 
+          key: circleci-bookmicroservices-{{ checksum "pom.xml" }}
+
+      - run: mvn dependency:go-offline 
+
+      - save_cache: 
+          paths:
+            - ~/.m2
+          key: circleci-bookmicroservices-{{ checksum "pom.xml" }}
+
+      - run:
+          name: Build Docker Image
+          command: |
+            docker build -t bookmicroserviceimage:latest .
+      - run: mvn package
+
+      - store_test_results: 
+          path: target/surefire-reports
+
+      - store_artifacts: 
+          path: target/bookmicroservices-0.0.1-SNAPSHOT.jar
+
+#
+## Login Microservice:
+#
+  "build-loginbackend-microservice": 
+    working_directory: ~/repoPath/BackEnd/loginmicroservices 
+
+    docker: 
+      - image: circleci/openjdk:11-stretch 
+
+    steps: 
+      - checkout:
+          path: ~/repoPath
+      - setup_remote_docker
+
+      - restore_cache: 
+          key: circleci-loginmicroservices-{{ checksum "pom.xml" }}
+
+      - run: mvn dependency:go-offline 
+
+      - save_cache: 
+          paths:
+            - ~/.m2
+          key: circleci-loginmicroservices-{{ checksum "pom.xml" }}
+
+      - run:
+          name: Build Docker Image
+          command: |
+            docker build -t loginmicroservices:latest .
+      - run: mvn package
+
+      #Specify Main Test Folder to Generate Test Result Summary
+      - store_test_results: 
+          path: target/surefire-reports
+
+      - store_artifacts:
+          path: target/loginmicroservices-0.0.1.jar
+
+#
+## Frontend
+#
+
+#https://circleci.com/blog/continuously-testing-react-applications-with-jest-and-enzyme/
+
+  "build-frontend":
+    working_directory: ~/repoPath/FrontEnd/myfirstapp # directory where steps will run
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout:
+          path: ~/repoPath
+      - setup_remote_docker
+      - restore_cache:
+          key: npm-cache-v1-{{ checksum "package-lock.json" }}
+      - run:
+          name: Install Dependencies
+          command: npm install --force
+      - save_cache:
+          key: npm-cache-v1-{{ checksum "package-lock.json" }}
+          paths:
+            - /home/circleci/.npm
+      - run:
+          name: Run Tests
+          command: npm test
+      - run:
+          name: Build Docker Image (Frontend)
+          command: |
+            docker build -t frontend:latest .
+workflows:
+  version: 2
+  build:
+    jobs:
+      - "build-bookbackend-microservice":
+          filters:
+            branches:
+              only: develop
+      - "build-loginbackend-microservice":
+          filters:
+            branches:
+              only: develop
+      - "build-frontend":
+          filters:
+            branches:
+              only: develop

@@ -26,6 +26,7 @@ public class JwtTokenProvider {
         claims.put("id", (Long.toString(user.getId())));
         claims.put("username", user.getUsername());
         claims.put("fullName", user.getFullName());
+        claims.put("accountType", user.getAccountType());
 
         return Jwts.builder()
                 .setSubject(userId)
@@ -64,5 +65,21 @@ public class JwtTokenProvider {
 
         return Long.parseLong(id);
     }
+
+    //Get account type from token
+    public String getAccountTypeFromJWT(String token){
+        Claims claims = Jwts.parser().setSigningKey(SecurityConstant.SECRET).parseClaimsJws(token).getBody();
+        String accountType = (String)claims.get("accountType");
+
+        return accountType;
+    }
+
+    public String getNameFromJWT(String token){
+        Claims claims = Jwts.parser().setSigningKey(SecurityConstant.SECRET).parseClaimsJws(token).getBody();
+        String accountType = (String)claims.get("fullName");
+
+        return accountType;
+    }
+
 }
 
